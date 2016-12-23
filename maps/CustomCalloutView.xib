@@ -19,33 +19,33 @@
                     <rect key="frame" x="0.0" y="0.0" width="387" height="593"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" image="no-image" translatesAutoresizingMaskIntoConstraints="NO" id="MeZ-dP-rbM">
-                            <rect key="frame" x="0.0" y="0.0" width="387" height="318"/>
+                            <rect key="frame" x="0.0" y="0.0" width="387" height="308"/>
                             <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="318" id="KVm-H9-pMO"/>
+                                <constraint firstAttribute="height" constant="308" id="KVm-H9-pMO"/>
                             </constraints>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zHe-TR-0HO">
-                            <rect key="frame" x="0.0" y="317" width="387" height="65"/>
+                            <rect key="frame" x="0.0" y="308" width="387" height="74"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="title" preservesSuperviewLayoutMargins="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="btz-OD-r6U">
-                                    <rect key="frame" x="8" y="0.0" width="371" height="37"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="address" preservesSuperviewLayoutMargins="YES" text="Address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vye-BS-Ue7">
-                                    <rect key="frame" x="8" y="36" width="371" height="21"/>
+                                    <rect key="frame" x="8" y="45" width="371" height="21"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="title" preservesSuperviewLayoutMargins="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="btz-OD-r6U">
+                                    <rect key="frame" x="8" y="8" width="371" height="37"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="65" id="pyM-MQ-WWD"/>
+                                <constraint firstAttribute="height" constant="74" id="pyM-MQ-WWD"/>
                             </constraints>
                         </view>
                         <textView clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" scrollEnabled="NO" editable="NO" text="Notes" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="34i-YB-2Jt" userLabel="Notes">
@@ -91,7 +91,7 @@
                         <constraint firstItem="34i-YB-2Jt" firstAttribute="top" secondItem="5P3-yx-jHS" secondAttribute="bottom" constant="-1" id="dbW-Gp-PSK"/>
                         <constraint firstItem="MeZ-dP-rbM" firstAttribute="leading" secondItem="zHe-TR-0HO" secondAttribute="leading" id="gbV-w7-xVD"/>
                         <constraint firstItem="5P3-yx-jHS" firstAttribute="firstBaseline" secondItem="YWX-vY-N4F" secondAttribute="firstBaseline" id="j3M-MT-hus"/>
-                        <constraint firstItem="5P3-yx-jHS" firstAttribute="top" secondItem="MeZ-dP-rbM" secondAttribute="bottom" constant="71" id="yII-Cf-ioy"/>
+                        <constraint firstItem="5P3-yx-jHS" firstAttribute="top" secondItem="MeZ-dP-rbM" secondAttribute="bottom" constant="81" id="yII-Cf-ioy"/>
                     </constraints>
                 </scrollView>
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" semanticContentAttribute="spatial" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="LpM-IQ-Oah">
