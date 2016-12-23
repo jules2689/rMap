@@ -17,9 +17,12 @@ class CustomCalloutView: UIView {
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var notes: UITextView!
-    @IBOutlet weak var closeButton: UIBarButtonItem!
     
-    func setViewsWithAnnotation(restaurant: NSDictionary, image: UIImage?) {
+    @IBOutlet weak var closeButton: UIBarButtonItem!
+    @IBOutlet weak var directionsButton: UIBarButtonItem!
+    @IBOutlet weak var yelpButton: UIBarButtonItem!
+    
+    func setViewsWith(restaurant: NSDictionary, image: UIImage?) {
         self.titleLabel.text = (restaurant["Name"] as! String)
         self.addressLabel.text = (restaurant["Address"] as! String)
         if let cost = restaurant["Cost"] as? String {

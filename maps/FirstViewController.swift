@@ -9,17 +9,13 @@
 import UIKit
 import Mapbox
 
-class FirstViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate, RestaurantsDelegate {
+class FirstViewController: BaseViewController, MGLMapViewDelegate, CLLocationManagerDelegate, RestaurantsDelegate {
     var locationManager: CLLocationManager!
     var mapView: MGLMapView!
     var hasLoadedLocation: Bool!
-    var restaurants: Restaurants!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        restaurants = Restaurants.sharedInstance
-        restaurants.delegates.add(self)
 
         hasLoadedLocation = false
         mapView = MGLMapView(frame: view.bounds)
@@ -41,6 +37,8 @@ class FirstViewController: UIViewController, MGLMapViewDelegate, CLLocationManag
         view.addSubview(mapView)
     }
     
+    // MARK: Location Manager Delegates
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
         if (!hasLoadedLocation) {
@@ -50,45 +48,23 @@ class FirstViewController: UIViewController, MGLMapViewDelegate, CLLocationManag
         }
     }
     
+    // MARK: MapView Delegates
+    
     func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
-        if let customView:CustomCalloutView = UINib(nibName: "CustomCalloutView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? CustomCalloutView {
-            
-            if let customAnnotation = annotation as? CustomPointAnnotation {
-                let name = customAnnotation.restaurant["Name"] as! String
-                customView.setViewsWithAnnotation(restaurant: customAnnotation.restaurant, image: restaurants.imageForRestaurant(name: name))
-                customView.closeButton.target = self
-                customView.closeButton.action = #selector(closeButtonPressed)
-            }
-
-            customView.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.x + 100, width: self.view.frame.size.width, height: self.view.frame.size.height - 100)
-            
-            let modalViewController = UIViewController()
-            modalViewController.view = customView
-            modalViewController.modalPresentationStyle = .overCurrentContext
-            self.present(modalViewController, animated: true, completion: nil)
+        if let customAnnotation = annotation as? CustomPointAnnotation {
+            self.presentModal(restaurant: customAnnotation.restaurant)
         }
     }
     
-    func closeButtonPressed() {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
     func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
-        // Always allow callouts to popup when annotations are tapped
         return false
     }
     
     func mapView(_ mapView: MGLMapView, calloutViewFor annotation: MGLAnnotation) -> UIView? {
         return nil
     }
-    
-    func mapView(_ mapView: MGLMapView, tapOnCalloutFor annotation: MGLAnnotation) {
-        // Optionally handle taps on the callout
-        print("Tapped the callout for: \(annotation)")
-        
-        // Hide the callout
-        mapView.deselectAnnotation(annotation, animated: true)
-    }
+
+    // MARK: Restaurant Delegates
     
     func restaurantsDidFinishFetch(sender restaurantsInstance: Restaurants) {
         for restaurant in restaurantsInstance.restaurants {

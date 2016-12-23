@@ -31,31 +31,8 @@ class Restaurants {
             self.fetchRestaurants();
         }
     }
-    
-    func imageForRestaurant(name: String) -> UIImage? {
-        return imageCache.object(forKey: name as AnyObject) as? UIImage
-    }
-    
-    func cacheImages(restaurants: NSArray) {
-        DispatchQueue.global(qos: .background).async {
-            for restaurant in restaurants {
-                if let restaurantDict = restaurant as? NSDictionary {
-                    if let pictureArray = restaurantDict["Pictures"] as? NSArray {
-                        if let pictureDictionary = pictureArray[0] as? NSDictionary {
-                            if let url = NSURL(string: (pictureDictionary["url"] as! String)) {
-                                if let data = NSData(contentsOf: url as URL) {
-                                    let name = restaurantDict["Name"] as! String
-                                    self.imageCache.setObject(UIImage(data: data as Data)!, forKey: name as AnyObject)
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
 
-    func fetchRestaurants() {
+    private func fetchRestaurants() {
         let airtableAppID = "appIMhRSxIBeDVPiv";
         let airtableAPIKey = "";
         let restaurantEntries : NSMutableArray = [] ;
@@ -122,6 +99,54 @@ class Restaurants {
         
         // Start / resume the data task.
         task.resume()
+    }
+    
+    // MARK: Image Handling
+    
+    func imageForRestaurant(name: String) -> UIImage? {
+        if let image = imageCache.object(forKey: name as AnyObject) as? UIImage {
+            return image
+        } else {
+            let filepath = self.getDocumentsDirectory().appendingPathComponent(name + ".png").relativePath
+            let data = FileManager.default.contents(atPath: filepath)
+            if data != nil {
+                let image = UIImage(data: data!)
+                self.imageCache.setObject(image!, forKey: name as AnyObject)
+                return image
+            }
+            return nil
+        }
+    }
+    
+    private func cacheImages(restaurants: NSArray) {
+        DispatchQueue.global(qos: .background).async {
+            for restaurant in restaurants {
+                if let restaurantDict = restaurant as? NSDictionary {
+                    if let pictureArray = restaurantDict["Pictures"] as? NSArray {
+                        if let pictureDictionary = pictureArray[0] as? NSDictionary {
+                            if let url = NSURL(string: (pictureDictionary["url"] as! String)) {
+                                if let data = NSData(contentsOf: url as URL) {
+                                    let name = restaurantDict["Name"] as! String
+                                    if let image = UIImage(data: data as Data) {
+                                        self.imageCache.setObject(image, forKey: name as AnyObject)
+                                        if let imageData = UIImagePNGRepresentation(image) {
+                                            let filename = self.getDocumentsDirectory().appendingPathComponent(name + ".png")
+                                            try? imageData.write(to: filename)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    private func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentsDirectory = paths[0]
+        return documentsDirectory
     }
     
 }

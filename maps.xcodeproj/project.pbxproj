@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		735AE5601E0DD81500AEF388 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735AE55F1E0DD81500AEF388 /* BaseViewController.swift */; };
 		7365318C1E0CA1D900C59A6C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7365318B1E0CA1D900C59A6C /* AppDelegate.swift */; };
 		7365318E1E0CA1D900C59A6C /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7365318D1E0CA1D900C59A6C /* FirstViewController.swift */; };
 		736531901E0CA1D900C59A6C /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7365318F1E0CA1D900C59A6C /* SecondViewController.swift */; };
@@ -55,6 +56,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		735AE55F1E0DD81500AEF388 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		736531881E0CA1D900C59A6C /* maps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = maps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7365318B1E0CA1D900C59A6C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7365318D1E0CA1D900C59A6C /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 			children = (
 				7365318D1E0CA1D900C59A6C /* FirstViewController.swift */,
 				7365318F1E0CA1D900C59A6C /* SecondViewController.swift */,
+				735AE55F1E0DD81500AEF388 /* BaseViewController.swift */,
 				736531911E0CA1D900C59A6C /* Main.storyboard */,
 			);
 			name = Controllers;
@@ -350,6 +353,7 @@
 				736531DE1E0CD44F00C59A6C /* CustomCalloutView.swift in Sources */,
 				7365318C1E0CA1D900C59A6C /* AppDelegate.swift in Sources */,
 				736531D21E0CBB6300C59A6C /* CustomPointAnnotation.swift in Sources */,
+				735AE5601E0DD81500AEF388 /* BaseViewController.swift in Sources */,
 				7365318E1E0CA1D900C59A6C /* FirstViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

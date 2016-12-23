@@ -8,25 +8,18 @@
 
 import UIKit
 
-class SecondViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, RestaurantsDelegate {
-    var restaurants: Restaurants!
+class SecondViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, RestaurantsDelegate {
     @IBOutlet var tableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        
-        restaurants = Restaurants.sharedInstance
-        restaurants.delegates.add(self)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    // MARK: Tableview Datasoure and Delegate
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return restaurants.restaurants.count
+        return self.restaurants.restaurants.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -56,28 +49,13 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let customView:CustomCalloutView = UINib(nibName: "CustomCalloutView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? CustomCalloutView {
-            
-            if let restaurant = self.restaurants.restaurants[indexPath.row] as? NSDictionary {
-                let name = restaurant["Name"] as! String
-                customView.setViewsWithAnnotation(restaurant: restaurant, image: restaurants.imageForRestaurant(name: name))
-                customView.closeButton.target = self
-                customView.closeButton.action = #selector(closeButtonPressed)
-            }
-            
-            customView.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.x + 100, width: self.view.frame.size.width, height: self.view.frame.size.height - 100)
-            
-            let modalViewController = UIViewController()
-            modalViewController.view = customView
-            modalViewController.modalPresentationStyle = .overCurrentContext
-            self.present(modalViewController, animated: true, completion: nil)
+        if let restaurant = self.restaurants.restaurants[indexPath.row] as? NSDictionary {
+            self.presentModal(restaurant: restaurant)
         }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
-    
-    func closeButtonPressed() {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
+
+    // MARK: Restaurant Delegate
 
     func restaurantsDidFinishFetch(sender: Restaurants) {
         self.tableView.reloadData()
