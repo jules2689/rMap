@@ -13,26 +13,27 @@ import UIKit
 class CustomCalloutView: UIView {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var costLabel: UILabel!
+    @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var notes: UITextView!
-    @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var closeButton: UIBarButtonItem!
     
-    func setViewsWithAnnotation(customAnnotation: CustomPointAnnotation) {
-        self.titleLabel.text = (customAnnotation.restaurant["Name"] as! String)
-        self.addressLabel.text = (customAnnotation.restaurant["Address"] as! String)
-        self.notes.text = (customAnnotation.restaurant["Notes"] as! String)
-
-        DispatchQueue.global(qos: .background).async {
-            let pictureDictionary = ((customAnnotation.restaurant["Pictures"] as! NSArray)[0] as! NSDictionary)
-            if let url = NSURL(string: (pictureDictionary["url"] as! String)) {
-                if let data = NSData(contentsOf: url as URL) {
-                    DispatchQueue.main.sync {
-                        self.imageView.image = UIImage(data: data as Data)
-                        self.imageView.contentMode = UIViewContentMode.scaleAspectFill
-                    }
-                }
-            }
+    func setViewsWithAnnotation(restaurant: NSDictionary, image: UIImage?) {
+        self.titleLabel.text = (restaurant["Name"] as! String)
+        self.addressLabel.text = (restaurant["Address"] as! String)
+        if let cost = restaurant["Cost"] as? String {
+           self.costLabel.text = cost
         }
-
+        if let rating = restaurant["Rating from Yelp"] as? NSNumber {
+            self.ratingLabel.text = rating.stringValue + "/5"
+        }
+        if let notes = restaurant["Notes"] as? String {
+            self.notes.text = notes
+        }
+        if image != nil {
+            self.imageView.image = image
+            self.imageView.contentMode = UIViewContentMode.scaleAspectFill
+        }
     }
 }

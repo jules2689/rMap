@@ -127,17 +127,12 @@
 		7365318A1E0CA1D900C59A6C /* maps */ = {
 			isa = PBXGroup;
 			children = (
-				7365318B1E0CA1D900C59A6C /* AppDelegate.swift */,
-				7365318D1E0CA1D900C59A6C /* FirstViewController.swift */,
-				7365318F1E0CA1D900C59A6C /* SecondViewController.swift */,
-				736531CD1E0CB1D200C59A6C /* Restaurants.swift */,
-				736531911E0CA1D900C59A6C /* Main.storyboard */,
+				739589011E0CF6B0006E4446 /* Controllers */,
+				739589031E0CF6C5006E4446 /* Views */,
+				739589021E0CF6B7006E4446 /* Models */,
 				736531941E0CA1DA00C59A6C /* Assets.xcassets */,
-				736531961E0CA1DA00C59A6C /* LaunchScreen.storyboard */,
+				7365318B1E0CA1D900C59A6C /* AppDelegate.swift */,
 				736531991E0CA1DA00C59A6C /* Info.plist */,
-				736531D11E0CBB6300C59A6C /* CustomPointAnnotation.swift */,
-				736531D31E0CBEF400C59A6C /* CustomCalloutView.xib */,
-				736531DD1E0CD44F00C59A6C /* CustomCalloutView.swift */,
 			);
 			path = maps;
 			sourceTree = "<group>";
@@ -165,6 +160,35 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		739589011E0CF6B0006E4446 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7365318D1E0CA1D900C59A6C /* FirstViewController.swift */,
+				7365318F1E0CA1D900C59A6C /* SecondViewController.swift */,
+				736531911E0CA1D900C59A6C /* Main.storyboard */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		739589021E0CF6B7006E4446 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				736531CD1E0CB1D200C59A6C /* Restaurants.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		739589031E0CF6C5006E4446 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				736531961E0CA1DA00C59A6C /* LaunchScreen.storyboard */,
+				736531D11E0CBB6300C59A6C /* CustomPointAnnotation.swift */,
+				736531D31E0CBEF400C59A6C /* CustomCalloutView.xib */,
+				736531DD1E0CD44F00C59A6C /* CustomCalloutView.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -421,7 +445,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -465,7 +489,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -583,6 +607,7 @@
 				736531B41E0CA1DA00C59A6C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		736531B51E0CA1DA00C59A6C /* Build configuration list for PBXNativeTarget "mapsTests" */ = {
 			isa = XCConfigurationList;
@@ -591,6 +616,7 @@
 				736531B71E0CA1DA00C59A6C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		736531B81E0CA1DA00C59A6C /* Build configuration list for PBXNativeTarget "mapsUITests" */ = {
 			isa = XCConfigurationList;
@@ -599,6 +625,7 @@
 				736531BA1E0CA1DA00C59A6C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

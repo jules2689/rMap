@@ -54,8 +54,10 @@ class FirstViewController: UIViewController, MGLMapViewDelegate, CLLocationManag
         if let customView:CustomCalloutView = UINib(nibName: "CustomCalloutView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? CustomCalloutView {
             
             if let customAnnotation = annotation as? CustomPointAnnotation {
-                customView.setViewsWithAnnotation(customAnnotation: customAnnotation)
-                customView.closeButton.addTarget(self, action: #selector(closeButtonPressed), for: .touchUpInside)
+                let name = customAnnotation.restaurant["Name"] as! String
+                customView.setViewsWithAnnotation(restaurant: customAnnotation.restaurant, image: restaurants.imageForRestaurant(name: name))
+                customView.closeButton.target = self
+                customView.closeButton.action = #selector(closeButtonPressed)
             }
 
             customView.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.x + 100, width: self.view.frame.size.width, height: self.view.frame.size.height - 100)

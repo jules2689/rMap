@@ -16,37 +16,64 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" image="no-image" translatesAutoresizingMaskIntoConstraints="NO" id="MeZ-dP-rbM">
-                    <rect key="frame" x="0.0" y="0.0" width="387" height="350"/>
+                    <rect key="frame" x="0.0" y="0.0" width="387" height="344"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                     <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="title" preservesSuperviewLayoutMargins="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GtF-hQ-E9u">
-                    <rect key="frame" x="5" y="358" width="376" height="21"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="address" preservesSuperviewLayoutMargins="YES" text="Address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZXx-mB-4dm">
-                    <rect key="frame" x="5" y="387" width="376" height="21"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" text="Notes" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="34i-YB-2Jt" userLabel="Notes">
-                    <rect key="frame" x="0.0" y="409" width="387" height="150"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                <textView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" editable="NO" text="Notes" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="34i-YB-2Jt" userLabel="Notes">
+                    <rect key="frame" x="11" y="473" width="366" height="100"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uYz-AZ-Fc5">
-                    <rect key="frame" x="18" y="579" width="350" height="30"/>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" semanticContentAttribute="spatial" fixedFrame="YES" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="LpM-IQ-Oah">
+                    <rect key="frame" x="0.0" y="573" width="387" height="44"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                    <size key="titleShadowOffset" width="1" height="1"/>
-                    <state key="normal" title="Close"/>
-                </button>
+                    <items>
+                        <barButtonItem title="View on Yelp" id="cIX-Il-Gtq"/>
+                        <barButtonItem width="10" systemItem="fixedSpace" id="dc6-sL-hfh"/>
+                        <barButtonItem title="Directions" id="x0D-hO-Kav"/>
+                        <barButtonItem systemItem="flexibleSpace" id="FIs-QM-a8R"/>
+                        <barButtonItem style="done" systemItem="done" id="nYz-p0-fbH"/>
+                    </items>
+                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                </toolbar>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W5l-04-Ij6">
+                    <rect key="frame" x="0.0" y="343" width="387" height="65"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="title" preservesSuperviewLayoutMargins="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GtF-hQ-E9u">
+                            <rect key="frame" x="8" y="0.0" width="371" height="37"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="address" preservesSuperviewLayoutMargins="YES" text="Address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZXx-mB-4dm">
+                            <rect key="frame" x="8" y="36" width="371" height="21"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="4.9/5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YWX-vY-N4F">
+                    <rect key="frame" x="261" y="429" width="76" height="37"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
+                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$$$" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5P3-yx-jHS">
+                    <rect key="frame" x="50" y="429" width="62" height="37"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
+                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <accessibility key="accessibilityConfiguration">
@@ -56,9 +83,11 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="addressLabel" destination="ZXx-mB-4dm" id="gZ3-qh-jEt"/>
-                <outlet property="closeButton" destination="uYz-AZ-Fc5" id="bcD-6p-i1S"/>
+                <outlet property="closeButton" destination="nYz-p0-fbH" id="Kuw-WG-yNA"/>
+                <outlet property="costLabel" destination="5P3-yx-jHS" id="lRK-tT-XK9"/>
                 <outlet property="imageView" destination="MeZ-dP-rbM" id="ys1-Zz-zJv"/>
                 <outlet property="notes" destination="34i-YB-2Jt" id="VmB-Ax-ME2"/>
+                <outlet property="ratingLabel" destination="YWX-vY-N4F" id="lsY-d7-KQx"/>
                 <outlet property="titleLabel" destination="GtF-hQ-E9u" id="iUi-rp-q3h"/>
             </connections>
             <point key="canvasLocation" x="-9.5" y="169.5"/>
