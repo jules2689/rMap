@@ -33,6 +33,7 @@ class CustomCalloutView: UIView {
         }
         if let notes = restaurant["Notes"] as? String {
             self.notes.text = notes
+            self.notes.sizeToFit()
         }
         if image != nil {
             self.imageView.image = image
