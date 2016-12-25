@@ -99,8 +99,7 @@ class SecondViewController: BaseViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let reuseIdentifier = "customCell"
-        let cell:UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as UITableViewCell?
+        let cell:UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: "customCell") as UITableViewCell?
 
         let restaurant = self.filteredRestaurants[indexPath.row]
         if let titleLabel = (cell?.viewWithTag(2) as? UILabel) {

@@ -40,7 +40,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstItem="btz-OD-r6U" firstAttribute="trailing" secondItem="zHe-TR-0HO" secondAttribute="trailingMargin" id="4Ic-m4-eyk"/>
                                         <constraint firstItem="vye-BS-Ue7" firstAttribute="top" secondItem="btz-OD-r6U" secondAttribute="bottom" id="6rM-uF-l9A"/>
@@ -160,10 +160,23 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jVa-ih-CEv" userLabel="MoreMetadataCard">
-                            <rect key="frame" x="15" y="431" width="356" height="97"/>
+                            <rect key="frame" x="15" y="431" width="356" height="100"/>
+                            <subviews>
+                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="dc4-gx-ven">
+                                    <rect key="frame" x="8" y="8" width="340" height="84"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="5" id="9tH-W6-M9b">
+                                        <size key="itemSize" width="90" height="20"/>
+                                        <size key="headerReferenceSize" width="50" height="20"/>
+                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    </collectionViewFlowLayout>
+                                </collectionView>
+                            </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="97" id="NzH-ed-L6H"/>
+                                <constraint firstAttribute="height" constant="100" id="NzH-ed-L6H"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
@@ -173,7 +186,7 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <view verifyAmbiguity="ignoreSizes" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" placeholderIntrinsicWidth="356" placeholderIntrinsicHeight="53" translatesAutoresizingMaskIntoConstraints="NO" id="GBM-0U-CSc" userLabel="NotesCard">
-                            <rect key="frame" x="15" y="543" width="356" height="53"/>
+                            <rect key="frame" x="15" y="646" width="356" height="53"/>
                             <subviews>
                                 <textView clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Notes" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="34i-YB-2Jt" userLabel="Notes">
                                     <rect key="frame" x="8" y="8" width="340" height="37"/>
@@ -242,14 +255,10 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                    <color key="value" white="1" alpha="0.39701947773972601" colorSpace="calibratedWhite"/>
-                </userDefinedRuntimeAttribute>
-            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="addressLabel" destination="vye-BS-Ue7" id="cGP-OB-2kN"/>
                 <outlet property="closeButton" destination="nYz-p0-fbH" id="Kuw-WG-yNA"/>
+                <outlet property="collectionView" destination="dc4-gx-ven" id="Ijq-Gc-3OH"/>
                 <outlet property="costLabel" destination="5P3-yx-jHS" id="lRK-tT-XK9"/>
                 <outlet property="directionsButton" destination="x0D-hO-Kav" id="FNS-yK-XqQ"/>
                 <outlet property="imageView" destination="MeZ-dP-rbM" id="ys1-Zz-zJv"/>

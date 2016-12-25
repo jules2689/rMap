@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 import CoreLocation
 
-class BaseViewController: UIViewController {
+class BaseViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     var restaurants: RestaurantsApi!
     var selectedRestaurant:Restaurant? = nil
     
@@ -24,7 +24,9 @@ class BaseViewController: UIViewController {
         if let customView:CustomCalloutView = UINib(nibName: "CustomCalloutView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? CustomCalloutView {
             let name = restaurant.name
             customView.setViewsWith(restaurant: restaurant, image: self.restaurants.imageForRestaurant(name: name!))
+            selectedRestaurant = restaurant
 
+            // Setup Button Targets
             customView.closeButton.target = self
             customView.closeButton.action = #selector(closeButtonPressed)
             
@@ -34,10 +36,14 @@ class BaseViewController: UIViewController {
             customView.yelpButton.target = self
             customView.yelpButton.action = #selector(viewOnYelpPressed)
             
-            selectedRestaurant = restaurant
+            // Collection View Delegate/Datasource
+            customView.collectionView.delegate = self
+            customView.collectionView.dataSource = self
+            customView.collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "collectionCell")
+            customView.collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader.self, withReuseIdentifier: "headerCell")
             
+            // Frames and Presenteance
             customView.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.x + 100, width: self.view.frame.size.width, height: self.view.frame.size.height - 100)
-            
             let modalViewController = UIViewController()
             modalViewController.view = customView
             modalViewController.modalPresentationStyle = .overCurrentContext
@@ -47,6 +53,68 @@ class BaseViewController: UIViewController {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
+    }
+    
+    // MARK: Collection View Delegate/Datasource
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as UICollectionViewCell? {
+            // Setup Cell
+            cell.contentView.backgroundColor = UIColor.init(colorLiteralRed: 0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
+            cell.layer.cornerRadius = 5
+            cell.clipsToBounds = true
+            
+            // Setup Label
+            let label = UILabel()
+            if indexPath.section == 0 && ((self.selectedRestaurant?.cuisine) != nil) && !(self.selectedRestaurant?.cuisine?.isEmpty)! {
+                label.text = self.selectedRestaurant?.cuisine?[indexPath.row]
+            } else {
+                label.text = self.selectedRestaurant?.diet?[indexPath.row]
+            }
+            label.textAlignment = .center
+            label.textColor = .white
+            label.frame = CGRect.init(x: 5, y: 0, width: cell.frame.size.width - 10, height: cell.frame.size.height)
+            label.font = label.font.withSize(12)
+            cell.contentView.addSubview(label)
+            
+            return cell
+        }
+        return UICollectionViewCell.init()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        // First section will always be cuisine if not nil/empty, otherwise it will be diet
+        if section == 0 {
+            if ((self.selectedRestaurant?.cuisine) != nil) && !(self.selectedRestaurant?.cuisine?.isEmpty)! {
+                return (self.selectedRestaurant?.cuisine?.count)!
+            }
+        }
+        return (self.selectedRestaurant?.diet?.count)!
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        var sections = 0
+        if ((self.selectedRestaurant?.cuisine) != nil) && !(self.selectedRestaurant?.cuisine?.isEmpty)! {
+            sections += 1
+        }
+        if ((self.selectedRestaurant?.diet) != nil) && !(self.selectedRestaurant?.diet?.isEmpty)! {
+            sections += 1
+        }
+        return sections
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let reusableview:UICollectionReusableView? = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerCell", for: indexPath)
+        if (kind == UICollectionElementKindSectionHeader) {
+            let label = UILabel()
+            label.text = indexPath.section == 0 ? "Cuisines" : "Diets"
+            label.textAlignment = .left
+            label.textColor = .darkGray
+            label.font = label.font.withSize(12)
+            label.sizeToFit()
+            reusableview?.addSubview(label)
+        }
+        return reusableview!
     }
     
     // MARK: Button Actions
