@@ -37,7 +37,9 @@ class CustomCalloutView: UIView {
         self.addressLabel.text = restaurant.address
         if var cost = restaurant.cost {
             let blueColor = UIColor.init(colorLiteralRed: 21.0/255, green: 126.0/255, blue: 251.0/255, alpha: 1.0) as UIColor
-            let attributedCost = NSMutableAttributedString(string: "$$$", attributes: [ NSForegroundColorAttributeName: UIColor.lightGray ])
+            let paragraphStyle = NSMutableParagraphStyle.init();
+            paragraphStyle.alignment = .center;
+            let attributedCost = NSMutableAttributedString(string: "$$$", attributes: [ NSForegroundColorAttributeName: UIColor.lightGray, NSParagraphStyleAttributeName: paragraphStyle ])
             attributedCost.addAttribute(NSForegroundColorAttributeName, value:blueColor, range: NSRange.init(location: 0, length: cost.characters.count))
             
             self.costLabel.attributedText = attributedCost
