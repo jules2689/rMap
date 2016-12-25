@@ -10,5 +10,5 @@ import Foundation
 import Mapbox
 
 class CustomPointAnnotation : MGLPointAnnotation {
-    var restaurant : NSDictionary = [:]
+    var restaurant : Restaurant? = nil
 }

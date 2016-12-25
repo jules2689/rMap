@@ -75,6 +75,9 @@
                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                     <integer key="value" value="5"/>
                                 </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                    <integer key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OGa-fR-jRc" userLabel="MetadataCard">
@@ -157,12 +160,15 @@
                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                     <integer key="value" value="5"/>
                                 </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                    <integer key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jVa-ih-CEv" userLabel="MoreMetadataCard">
                             <rect key="frame" x="15" y="431" width="356" height="97"/>
                             <subviews>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="20" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JPj-gI-AE6">
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="20" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JPj-gI-AE6">
                                     <rect key="frame" x="0.0" y="0.0" width="356" height="97"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -176,6 +182,9 @@
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                     <integer key="value" value="5"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                    <integer key="value" value="1"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
@@ -201,10 +210,13 @@
                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                     <integer key="value" value="5"/>
                                 </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                    <integer key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.4275738441780822" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="jVa-ih-CEv" firstAttribute="top" secondItem="OGa-fR-jRc" secondAttribute="bottom" constant="15" id="9tJ-F4-m83"/>
                         <constraint firstItem="3QN-g7-Sa4" firstAttribute="trailing" secondItem="OGa-fR-jRc" secondAttribute="trailing" id="AbD-XU-XCa"/>
@@ -257,6 +269,7 @@
                 <outlet property="imageView" destination="MeZ-dP-rbM" id="ys1-Zz-zJv"/>
                 <outlet property="notes" destination="34i-YB-2Jt" id="VmB-Ax-ME2"/>
                 <outlet property="ratingLabel" destination="YWX-vY-N4F" id="lsY-d7-KQx"/>
+                <outlet property="scrollView" destination="DzJ-xu-FhI" id="nFZ-3p-rOR"/>
                 <outlet property="titleLabel" destination="btz-OD-r6U" id="Hrf-m8-oC1"/>
                 <outlet property="yelpButton" destination="cIX-Il-Gtq" id="7I0-Xi-nQc"/>
             </connections>

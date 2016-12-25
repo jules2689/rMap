@@ -16,6 +16,7 @@ class FirstViewController: BaseViewController, MGLMapViewDelegate, CLLocationMan
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.restaurants.delegates.append(self)
 
         hasLoadedLocation = false
         mapView = MGLMapView(frame: view.bounds)
@@ -52,7 +53,7 @@ class FirstViewController: BaseViewController, MGLMapViewDelegate, CLLocationMan
     
     func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
         if let customAnnotation = annotation as? CustomPointAnnotation {
-            self.presentModal(restaurant: customAnnotation.restaurant)
+            self.presentModal(restaurant: customAnnotation.restaurant!)
         }
     }
     
@@ -68,20 +69,16 @@ class FirstViewController: BaseViewController, MGLMapViewDelegate, CLLocationMan
     
     func restaurantsDidFinishFetch(sender restaurantsInstance: Restaurants) {
         for restaurant in restaurantsInstance.restaurants {
-            if let restaurantDict = restaurant as? NSDictionary {
-                if (restaurantDict.object(forKey: "Latitude") != nil && restaurantDict.object(forKey: "Longitude") != nil) {
-                    let marker = CustomPointAnnotation()
-                    marker.coordinate = CLLocationCoordinate2D(latitude: restaurantDict["Latitude"] as! Double, longitude: restaurantDict["Longitude"] as! Double)
-                    marker.title = restaurantDict["Name"] as? String
-                    marker.subtitle = restaurantDict["Address"] as? String
-                    marker.restaurant = restaurantDict;
-                    DispatchQueue.main.sync {
-                        mapView.addAnnotation(marker)
-                    }
+            if (restaurant.latitude != nil && restaurant.longitude != nil) {
+                let marker = CustomPointAnnotation()
+                marker.coordinate = CLLocationCoordinate2D(latitude: restaurant.latitude!, longitude: restaurant.longitude!)
+                marker.title = restaurant.name
+                marker.subtitle = restaurant.address
+                marker.restaurant = restaurant;
+                DispatchQueue.main.sync {
+                    mapView.addAnnotation(marker)
                 }
             }
-            
         }
-        
     }
 }

@@ -8,15 +8,16 @@
 
 import Foundation
 import UIKit
+import ObjectMapper
 
 protocol RestaurantsDelegate: class {
     func restaurantsDidFinishFetch(sender: Restaurants)
 }
 
 class Restaurants {
-    var restaurants: NSMutableArray!
+    var restaurants = Array<Restaurant>()
     var imageCache: NSCache<AnyObject, AnyObject>!
-    var delegates: NSMutableArray
+    var delegates = Array<RestaurantsDelegate>()
     
     static let sharedInstance : Restaurants = {
         let instance = Restaurants()
@@ -24,8 +25,6 @@ class Restaurants {
     }()
     
     init() {
-        self.restaurants = NSMutableArray.init()
-        self.delegates = NSMutableArray.init()
         self.imageCache = NSCache.init()
         DispatchQueue.global(qos: .background).async {
             self.fetchRestaurants();
@@ -35,7 +34,6 @@ class Restaurants {
     private func fetchRestaurants() {
         let airtableAppID = "appIMhRSxIBeDVPiv";
         let airtableAPIKey = "";
-        let restaurantEntries : NSMutableArray = [] ;
 
         // Prepare the URL request.
         let url = "https://api.airtable.com/v0/\(airtableAppID)/Restaurants?sort%5B0%5D%5Bfield%5D=Name&sort%5B0%5D%5Bdirection%5D=asc"
@@ -74,22 +72,11 @@ class Restaurants {
             
             // Try to serialize the data to JSON.
             do {
-                
-                let jsonData = try JSONSerialization.jsonObject(with: responseData, options:[]) as! NSDictionary
-                
-                for record in jsonData["records"] as! NSArray {
-                    if let dict = record as? NSDictionary {
-                        let restaurant = dict["fields"] as! NSDictionary
-                        restaurantEntries.add(restaurant)
-                    }
-                }
-                
-                self.restaurants = restaurantEntries;
-                self.cacheImages(restaurants: self.restaurants)
+                let jsonData = try JSONSerialization.jsonObject(with: responseData, options:[]) as? [String: Array<Any>]
+                self.restaurants = Mapper<Restaurant>().mapArray(JSONObject: jsonData?["records"])!
                 for delegate in self.delegates {
-                    (delegate as! RestaurantsDelegate).restaurantsDidFinishFetch(sender: self)
+                    delegate.restaurantsDidFinishFetch(sender: self)
                 }
-                // Get the fields from the JSON data.
             } catch {
                 print("Error: Unable to convert data to JSON.")
                 return
@@ -118,22 +105,17 @@ class Restaurants {
         }
     }
     
-    private func cacheImages(restaurants: NSArray) {
+    private func cacheImages(restaurants: Array<Restaurant>) {
         DispatchQueue.global(qos: .background).async {
             for restaurant in restaurants {
-                if let restaurantDict = restaurant as? NSDictionary {
-                    if let pictureArray = restaurantDict["Pictures"] as? NSArray {
-                        if let pictureDictionary = pictureArray[0] as? NSDictionary {
-                            if let url = NSURL(string: (pictureDictionary["url"] as! String)) {
-                                if let data = NSData(contentsOf: url as URL) {
-                                    let name = restaurantDict["Name"] as! String
-                                    if let image = UIImage(data: data as Data) {
-                                        self.imageCache.setObject(image, forKey: name as AnyObject)
-                                        if let imageData = UIImagePNGRepresentation(image) {
-                                            let filename = self.getDocumentsDirectory().appendingPathComponent(name + ".png")
-                                            try? imageData.write(to: filename)
-                                        }
-                                    }
+                if let picture = restaurant.pictures?[0] {
+                    if let url = NSURL(string: picture.url) {
+                        if let data = NSData(contentsOf: url as URL) {
+                            if let image = UIImage(data: data as Data) {
+                                self.imageCache.setObject(image, forKey: restaurant.name as AnyObject)
+                                if let imageData = UIImagePNGRepresentation(image) {
+                                    let filename = self.getDocumentsDirectory().appendingPathComponent(restaurant.name + ".png")
+                                    try? imageData.write(to: filename)
                                 }
                             }
                         }
