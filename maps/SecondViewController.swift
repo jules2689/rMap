@@ -121,7 +121,7 @@ class SecondViewController: BaseViewController, UITableViewDataSource, UITableVi
             metadataLabel.text = opts.joined(separator: "   ")
         }
 
-        if let image = self.restaurants.imageForRestaurant(name: restaurant.name) {
+        if let image = self.restaurants.imageForRestaurant(name: restaurant.name!) {
             if let imageView = (cell?.viewWithTag(1) as? UIImageView) {
                 imageView.image = image
             }
@@ -140,8 +140,12 @@ class SecondViewController: BaseViewController, UITableViewDataSource, UITableVi
 
     // MARK: Restaurant Delegate
 
-    func restaurantsDidFinishFetch(sender: RestaurantsApi) {
+    func restaurantsDidFetch(sender: RestaurantsApi) {
         self.tableView.reloadData()
+    }
+    
+    func restaurantsDidError(sender: RestaurantsApi, errorMessage: String) {
+        self.presentError(message: errorMessage)
     }
     
     func restaurantFilterViewDidFilter(sender: RestaurantFilterViewController) {

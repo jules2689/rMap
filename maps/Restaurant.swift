@@ -24,6 +24,8 @@ class Restaurant: Mappable {
     var longitude: Double?
     var createdAt: Date!
 
+    var presentedOnMap:Bool = false
+    
     required init?(map: Map) {
         self.pictures = Array<Picture>()
     }

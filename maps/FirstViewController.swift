@@ -37,6 +37,8 @@ class FirstViewController: BaseViewController, MGLMapViewDelegate, CLLocationMan
         // Set the map’s center coordinate and zoom level.
         mapView.setCenter(CLLocationCoordinate2D(latitude: 40.69636800, longitude: -73.65382600), zoomLevel: 8, animated: false)
         view.addSubview(mapView)
+        
+        self.presentError(message: "Test Error")
     }
     
     // MARK: Location Manager Delegates
@@ -68,9 +70,10 @@ class FirstViewController: BaseViewController, MGLMapViewDelegate, CLLocationMan
 
     // MARK: Restaurant Delegates
     
-    func restaurantsDidFinishFetch(sender restaurantsInstance: RestaurantsApi) {
+    func restaurantsDidFetch(sender restaurantsInstance: RestaurantsApi) {
         for restaurant in restaurantsInstance.restaurants {
-            if (restaurant.latitude != nil && restaurant.longitude != nil) {
+            if (restaurant.latitude != nil && restaurant.longitude != nil && !restaurant.presentedOnMap) {
+                restaurant.presentedOnMap = true
                 let marker = CustomPointAnnotation()
                 marker.coordinate = CLLocationCoordinate2D(latitude: restaurant.latitude!, longitude: restaurant.longitude!)
                 marker.title = restaurant.name
@@ -81,5 +84,9 @@ class FirstViewController: BaseViewController, MGLMapViewDelegate, CLLocationMan
                 }
             }
         }
+    }
+    
+    func restaurantsDidError(sender: RestaurantsApi, errorMessage: String) {
+        self.presentError(message: errorMessage)
     }
 }

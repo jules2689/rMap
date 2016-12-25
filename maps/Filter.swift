@@ -13,8 +13,7 @@ class Filter {
     var costs: [String: Bool] = [:]
     var cuisines: [String: Bool] = [:]
     var diets: [String: Bool] = [:]
-    
-    // TODO : Save selection between launches
+
     init(restaurants: Array<Restaurant>) {
         self.restaurants = restaurants
         let defaults = UserDefaults.standard

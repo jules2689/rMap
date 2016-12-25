@@ -3,103 +3,103 @@
     {
       "size" : "20x20",
       "idiom" : "iphone",
-      "filename" : "map-8-44.png",
+      "filename" : "iphone-notification-20pt@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "20x20",
       "idiom" : "iphone",
-      "filename" : "map-8-62.png",
+      "filename" : "iphone-notification-20pt@3x.png",
       "scale" : "3x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "map-8-61.png",
+      "filename" : "iphone-spotlight-settings-29pt@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "map-8-87.png",
+      "filename" : "iphone-spotlight-settings-29pt@3x.png",
       "scale" : "3x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "map-8-83.png",
+      "filename" : "iphone-spotlight-40pt@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "map-8-121.png",
+      "filename" : "iphone-spotlight-40pt@3x.png",
       "scale" : "3x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "map-8-120.png",
+      "filename" : "iphone-app-60pt@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "map-8-180.png",
+      "filename" : "iphone-app-60pt@3x.png",
       "scale" : "3x"
     },
     {
       "size" : "20x20",
       "idiom" : "ipad",
-      "filename" : "map-8-21.png",
+      "filename" : "ipad-notifications-20pt@1x.png",
       "scale" : "1x"
     },
     {
       "size" : "20x20",
       "idiom" : "ipad",
-      "filename" : "map-8-42.png",
+      "filename" : "ipad-notifications-20pt@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "29x29",
       "idiom" : "ipad",
-      "filename" : "map-8-30.png",
+      "filename" : "ipad-settings-29pt@1x.png",
       "scale" : "1x"
     },
     {
       "size" : "29x29",
       "idiom" : "ipad",
-      "filename" : "map-8-59.png",
+      "filename" : "ipad-settings-29pt@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "ipad",
-      "filename" : "map-8-43.png",
+      "filename" : "ipad-spotlight-40pt@1x.png",
       "scale" : "1x"
     },
     {
       "size" : "40x40",
       "idiom" : "ipad",
-      "filename" : "map-8-81.png",
+      "filename" : "ipad-spotlight-40pt@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "map-8-76.png",
+      "filename" : "ipad-app-76pt@1x.png",
       "scale" : "1x"
     },
     {
       "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "map-8-152.png",
+      "filename" : "ipad-app-76pt@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "83.5x83.5",
       "idiom" : "ipad",
-      "filename" : "map-8-167.png",
+      "filename" : "ipad-pro-app-83.5pt@2x.png",
       "scale" : "2x"
     }
   ],

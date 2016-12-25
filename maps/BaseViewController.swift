@@ -56,6 +56,17 @@ class BaseViewController: UIViewController, UICollectionViewDelegate, UICollecti
         return .lightContent
     }
     
+    func presentError(message: String) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Got it", style: .default, handler: nil))
+        alert.modalPresentationStyle = .overCurrentContext
+        DispatchQueue.global(qos: .background).async {
+            DispatchQueue.main.sync {
+                UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
+            }
+        }
+    }
+    
     // MARK: Collection View Delegate/Datasource
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -142,7 +153,7 @@ class BaseViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 if let url = NSURL(string: path) {
                     UIApplication.shared.openURL(url as URL)
                 } else {
-                    // Could not construct url. Handle error.
+                    self.presentError(message: "There was an error opening maps, could not construct url")
                 }
             }
         }
@@ -153,7 +164,7 @@ class BaseViewController: UIViewController, UICollectionViewDelegate, UICollecti
             if let url = NSURL(string: urlPath) {
                 UIApplication.shared.openURL(url as URL)
             } else {
-                // Could not construct url. Handle error.
+                self.presentError(message: "There was an error opening Yelp, could not construct url")
             }
         }
     }

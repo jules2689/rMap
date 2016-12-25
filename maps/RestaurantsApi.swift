@@ -11,7 +11,8 @@ import UIKit
 import ObjectMapper
 
 protocol RestaurantsDelegate: class {
-    func restaurantsDidFinishFetch(sender: RestaurantsApi)
+    func restaurantsDidFetch(sender: RestaurantsApi)
+    func restaurantsDidError(sender: RestaurantsApi, errorMessage: String)
 }
 
 class RestaurantsApi {
@@ -27,16 +28,19 @@ class RestaurantsApi {
     init() {
         self.imageCache = NSCache.init()
         DispatchQueue.global(qos: .background).async {
-            self.fetchRestaurants();
+            self.fetchRestaurants(offset: nil)
         }
     }
 
-    private func fetchRestaurants() {
+    private func fetchRestaurants(offset: String?) {
         let airtableAppID = "appIMhRSxIBeDVPiv";
         let airtableAPIKey = "";
 
         // Prepare the URL request.
-        let url = "https://api.airtable.com/v0/\(airtableAppID)/Restaurants?sort%5B0%5D%5Bfield%5D=Name&sort%5B0%5D%5Bdirection%5D=asc"
+        var url = "https://api.airtable.com/v0/\(airtableAppID)/Restaurants?sort%5B0%5D%5Bfield%5D=Name&sort%5B0%5D%5Bdirection%5D=asc"
+        if offset != nil {
+            url = url + "&offset=" + offset!
+        }
         let urlRequest = NSMutableURLRequest(url: NSURL(string: url)! as URL)
         
         // Specify the Authorization header.
@@ -51,35 +55,40 @@ class RestaurantsApi {
             
             // Catch general errors (such as unsupported URLs).
             guard error == nil else {
-                print("Error")
-                print(error!)
+                self.didError(message: (error as! NSError).localizedDescription)
                 return
             }
             
             // Catch HTTP errors (anything other than "200 OK").
             let httpResponse: HTTPURLResponse = (response as? HTTPURLResponse)!
             if httpResponse.statusCode != 200 {
-                print("HTTP Error")
-                print(httpResponse.statusCode)
+                self.didError(message: "HTTP Error" + String(httpResponse.statusCode))
                 return
             }
             
             // Check to see that the response included data.
             guard let responseData = data else {
-                print("Error: No data was found in the response.")
+                self.didError(message: "No data was found in the response from the server")
                 return
             }
             
             // Try to serialize the data to JSON.
             do {
-                let jsonData = try JSONSerialization.jsonObject(with: responseData, options:[]) as? [String: Array<Any>]
-                self.restaurants = Mapper<Restaurant>().mapArray(JSONObject: jsonData?["records"])!
-                self.cacheImages(restaurants: self.restaurants)
+                let jsonData = try JSONSerialization.jsonObject(with: responseData, options:[]) as? [String: Any]
+                
+                let restaurants = Mapper<Restaurant>().mapArray(JSONObject: jsonData?["records"])!
+                self.restaurants.append(contentsOf: restaurants)
+                self.cacheImages(restaurants: restaurants)
+                
+                if let offset = jsonData?["offset"] as? String {
+                    self.fetchRestaurants(offset: offset)
+                }
+                
                 for delegate in self.delegates {
-                    delegate.restaurantsDidFinishFetch(sender: self)
+                    delegate.restaurantsDidFetch(sender: self)
                 }
             } catch {
-                print("Error: Unable to convert data to JSON.")
+                self.didError(message: "Could not convert the server response to useable data")
                 return
             }
             
@@ -115,7 +124,7 @@ class RestaurantsApi {
                             if let image = UIImage(data: data as Data) {
                                 self.imageCache.setObject(image, forKey: restaurant.name as AnyObject)
                                 if let imageData = UIImagePNGRepresentation(image) {
-                                    let filename = self.getDocumentsDirectory().appendingPathComponent(restaurant.name + ".png")
+                                    let filename = self.getDocumentsDirectory().appendingPathComponent(restaurant.name! + ".png")
                                     try? imageData.write(to: filename)
                                 }
                             }
@@ -130,6 +139,13 @@ class RestaurantsApi {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let documentsDirectory = paths[0]
         return documentsDirectory
+    }
+    
+    private func didError(message: String) {
+        print("Error: \(message)")
+        for delegate in self.delegates {
+            delegate.restaurantsDidError(sender: self, errorMessage: message)
+        }
     }
     
 }
