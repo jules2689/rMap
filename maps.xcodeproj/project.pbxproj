@@ -22,6 +22,7 @@
 		736531D21E0CBB6300C59A6C /* CustomPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736531D11E0CBB6300C59A6C /* CustomPointAnnotation.swift */; };
 		736531D41E0CBEF400C59A6C /* CustomCalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 736531D31E0CBEF400C59A6C /* CustomCalloutView.xib */; };
 		736531DE1E0CD44F00C59A6C /* CustomCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736531DD1E0CD44F00C59A6C /* CustomCalloutView.swift */; };
+		73905C941E10256100ECA735 /* ObjectMapper.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 73905C871E10230700ECA735 /* ObjectMapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		739DC2F31E0F44D5005B497D /* RestaurantFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739DC2F21E0F44D5005B497D /* RestaurantFilterViewController.swift */; };
 		739DC3121E0F8058005B497D /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739DC3111E0F8058005B497D /* Restaurant.swift */; };
 		739DC3141E0F8771005B497D /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739DC3131E0F8771005B497D /* Picture.swift */; };
@@ -112,6 +113,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				73905C941E10256100ECA735 /* ObjectMapper.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;

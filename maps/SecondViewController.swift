@@ -19,17 +19,22 @@ class SecondViewController: BaseViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        
         self.filteredRestaurants = self.restaurants.restaurants
         self.filter = Filter.init(restaurants: self.restaurants.restaurants)
         
+        // Delegate and property setup
         self.searchController.searchResultsUpdater = self
         self.searchController.dimsBackgroundDuringPresentation = false
         self.searchController.searchBar.delegate = self
-        self.searchController.searchBar.tintColor = UIColor.white
-        self.searchController.searchBar.backgroundColor = UIColor.darkGray
+
+        // Setup Searchbar Visuals
+        self.searchController.searchBar.barTintColor = UIColor.init(colorLiteralRed: 33/255.0, green: 33/255.0, blue: 33/255.0, alpha: 1.0)
+        self.searchController.searchBar.layer.borderWidth = 0
         self.tableView.tableHeaderView = self.searchController.searchBar
-        self.tableView.tableHeaderView?.backgroundColor = UIColor.darkGray
+        
+        // Hack to get the background to be "lead" color
+        self.tableView.backgroundView = UIView()
+        self.tableView.backgroundView?.backgroundColor = UIColor.init(colorLiteralRed: 33/255.0, green: 33/255.0, blue: 33/255.0, alpha: 1.0)
     }
     
     // MARK: Filter control
