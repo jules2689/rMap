@@ -24,10 +24,23 @@ class CustomCalloutView: UIView {
     @IBOutlet weak var directionsButton: UIBarButtonItem!
     @IBOutlet weak var yelpButton: UIBarButtonItem!
     
+    var scrollViewSubViewsBorderColor:UIColor?
+    @IBInspectable var borderColor: UIColor? {
+        didSet {
+           self.scrollViewSubViewsBorderColor = borderColor
+        }
+    }
+    
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
         UIView.animate(withDuration: 0.65) {
-            self.scrollView.backgroundColor = self.scrollView.backgroundColor?.withAlphaComponent(0.7)
+            self.scrollView.backgroundColor = self.scrollView.backgroundColor?.withAlphaComponent(0.4)
+        }
+        if self.scrollView != nil {
+            for view in self.scrollView.subviews {
+                view.layer.borderColor = scrollViewSubViewsBorderColor?.cgColor
+                view.layer.borderWidth = 1
+            }
         }
     }
     

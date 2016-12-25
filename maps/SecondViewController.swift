@@ -25,9 +25,11 @@ class SecondViewController: BaseViewController, UITableViewDataSource, UITableVi
         
         self.searchController.searchResultsUpdater = self
         self.searchController.dimsBackgroundDuringPresentation = false
-        definesPresentationContext = false
         self.searchController.searchBar.delegate = self
+        self.searchController.searchBar.tintColor = UIColor.white
+        self.searchController.searchBar.backgroundColor = UIColor.darkGray
         self.tableView.tableHeaderView = self.searchController.searchBar
+        self.tableView.tableHeaderView?.backgroundColor = UIColor.darkGray
     }
     
     // MARK: Filter control
@@ -102,6 +104,17 @@ class SecondViewController: BaseViewController, UITableViewDataSource, UITableVi
         
         if let addressLabel = (cell?.viewWithTag(3) as? UILabel) {
             addressLabel.text = restaurant.address
+        }
+        
+        if let metadataLabel = (cell?.viewWithTag(4) as? UILabel) {
+            var opts = Array<String>()
+            if restaurant.cost != nil {
+                opts.append(restaurant.cost!)
+            }
+            if restaurant.rating != nil {
+                opts.append(NSNumber.init(value: restaurant.rating!).stringValue)
+            }
+            metadataLabel.text = opts.joined(separator: "   ")
         }
 
         if let image = self.restaurants.imageForRestaurant(name: restaurant.name) {

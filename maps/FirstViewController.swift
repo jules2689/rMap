@@ -19,7 +19,7 @@ class FirstViewController: BaseViewController, MGLMapViewDelegate, CLLocationMan
         self.restaurants.delegates.append(self)
 
         hasLoadedLocation = false
-        mapView = MGLMapView(frame: view.bounds)
+        mapView = MGLMapView(frame: self.view.bounds, styleURL:  MGLStyle.darkStyleURL(withVersion: 9))
         
         if (CLLocationManager.locationServicesEnabled())
         {
@@ -31,6 +31,7 @@ class FirstViewController: BaseViewController, MGLMapViewDelegate, CLLocationMan
         }
         
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        mapView.tintColor = .darkGray
         mapView.delegate = self;
 
         // Set the map’s center coordinate and zoom level.

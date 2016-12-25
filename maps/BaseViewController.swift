@@ -45,8 +45,8 @@ class BaseViewController: UIViewController {
         }
     }
     
-    override var prefersStatusBarHidden: Bool {
-        return self.selectedRestaurant != nil
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     // MARK: Button Actions

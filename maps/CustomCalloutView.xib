@@ -40,7 +40,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstItem="btz-OD-r6U" firstAttribute="trailing" secondItem="zHe-TR-0HO" secondAttribute="trailingMargin" id="4Ic-m4-eyk"/>
                                         <constraint firstItem="vye-BS-Ue7" firstAttribute="top" secondItem="btz-OD-r6U" secondAttribute="bottom" id="6rM-uF-l9A"/>
@@ -74,9 +74,6 @@
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                     <integer key="value" value="5"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                    <integer key="value" value="1"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
@@ -160,20 +157,10 @@
                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                     <integer key="value" value="5"/>
                                 </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                    <integer key="value" value="1"/>
-                                </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jVa-ih-CEv" userLabel="MoreMetadataCard">
                             <rect key="frame" x="15" y="431" width="356" height="97"/>
-                            <subviews>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="20" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JPj-gI-AE6">
-                                    <rect key="frame" x="0.0" y="0.0" width="356" height="97"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </tableView>
-                            </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="97" id="NzH-ed-L6H"/>
@@ -182,9 +169,6 @@
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                     <integer key="value" value="5"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                    <integer key="value" value="1"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
@@ -209,9 +193,6 @@
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                     <integer key="value" value="5"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                    <integer key="value" value="1"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
@@ -244,7 +225,7 @@
                         <barButtonItem style="done" systemItem="done" id="nYz-p0-fbH"/>
                     </items>
                     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <color key="barTintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="barTintColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                 </toolbar>
             </subviews>
             <accessibility key="accessibilityConfiguration">
@@ -261,6 +242,11 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                    <color key="value" white="1" alpha="0.39701947773972601" colorSpace="calibratedWhite"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="addressLabel" destination="vye-BS-Ue7" id="cGP-OB-2kN"/>
                 <outlet property="closeButton" destination="nYz-p0-fbH" id="Kuw-WG-yNA"/>
