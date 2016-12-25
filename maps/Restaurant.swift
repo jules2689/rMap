@@ -16,6 +16,7 @@ class Restaurant: Mappable {
     var notes: String?
     var pictures: Array<Picture>?
     var diet: Array<String>?
+    var city: String?
     var cost: String?
     var address: String!
     var rating: Double?
@@ -38,6 +39,7 @@ class Restaurant: Mappable {
         notes          <- map["fields.Notes"]
         pictures       <- map["fields.Pictures"]
         diet           <- map["fields.Diet"]
+        city           <- map["fields.City"]
         cost           <- map["fields.Cost"]
         address        <- map["fields.Address"]
         rating         <- map["fields.Rating from Yelp"]

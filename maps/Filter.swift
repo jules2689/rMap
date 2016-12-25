@@ -13,6 +13,7 @@ class Filter {
     var costs: [String: Bool] = [:]
     var cuisines: [String: Bool] = [:]
     var diets: [String: Bool] = [:]
+    var cities: [String: Bool] = [:]
 
     init(restaurants: Array<Restaurant>) {
         self.restaurants = restaurants
@@ -37,6 +38,18 @@ class Filter {
             } else {
                 // Start Cuisines off as true
                 self.cuisines[cuisine] = true
+                defaults.set(true, forKey: key)
+            }
+        }
+        
+        let cities = filtered(filter: "City")
+        for city in cities {
+            let key = "filter-city-" + city
+            if defaults.object(forKey: key) != nil {
+                self.cities[city] = defaults.bool(forKey: key)
+            } else {
+                // Start Cuisines off as true
+                self.cities[city] = true
                 defaults.set(true, forKey: key)
             }
         }
@@ -89,6 +102,17 @@ class Filter {
             matches = matches && matchesCuisine
             if !matches { return false }
             
+            // Match against city
+            // City is an OR operation to match against any, since they won't share cities
+            var matchesCity = false
+            for (city, isEnabled) in cities {
+                if isEnabled {
+                    matchesCity = (matchesCity || $0.city == city)
+                }
+            }
+            matches = matches && matchesCity
+            if !matches { return false }
+            
             // Match against diets
             // Diet is an AND operation since you want to match agaisnt all of them
             var matchesDiet = true
@@ -112,6 +136,8 @@ class Filter {
             return self.cuisines[option]!
         case "Diet":
             return self.diets[option]!
+        case "City":
+            return self.cities[option]!
         default:
             return false
         }
@@ -132,6 +158,10 @@ class Filter {
                 self.diets[option] = !self.diets[option]!
                 defaults.set(self.diets[option], forKey: "filter-diet-" + option)
                 break
+            case "City":
+                self.cities[option] = !self.cities[option]!
+                defaults.set(self.cities[option], forKey: "filter-city-" + option)
+                break
             default:
                 break
         }
@@ -139,8 +169,12 @@ class Filter {
 
     private func filtered(filter: String) -> Array<String> {
         let filteredArray = self.restaurants.flatMap({ (restaurant) -> Array<String> in
-            if let diets = ((restaurant as Restaurant).toJSON()["fields"] as! Dictionary<String, Any>)[filter] {
-                return diets as! Array<String>
+            if let filteredOptions = ((restaurant as Restaurant).toJSON()["fields"] as! Dictionary<String, Any>)[filter] {
+                if let filteredString = filteredOptions as? String {
+                    return [filteredString]
+                } else {
+                    return filteredOptions as! Array<String>
+                }
             }
             return []
         })

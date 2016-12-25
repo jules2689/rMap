@@ -73,6 +73,8 @@ class RestaurantFilterViewController: BaseViewController, UITableViewDataSource,
                     return [String](fil.cuisines.keys.elements).sorted { $0 < $1 }
                 case "Diet":
                     return [String](fil.diets.keys.elements).sorted { $0 < $1 }
+                case "City":
+                    return [String](fil.cities.keys.elements).sorted { $0 < $1 }
                 default:
                     return []
                 }
