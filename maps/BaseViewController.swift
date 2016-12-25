@@ -41,6 +41,7 @@ class BaseViewController: UIViewController, UICollectionViewDelegate, UICollecti
             customView.collectionView.dataSource = self
             customView.collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "collectionCell")
             customView.collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader.self, withReuseIdentifier: "headerCell")
+            customView.collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter.self, withReuseIdentifier: "footerCell")
             
             // Frames and Presenteance
             customView.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.x + 100, width: self.view.frame.size.width, height: self.view.frame.size.height - 100)
@@ -104,8 +105,8 @@ class BaseViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let reusableview:UICollectionReusableView? = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerCell", for: indexPath)
         if (kind == UICollectionElementKindSectionHeader) {
+            let reusableview:UICollectionReusableView? = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerCell", for: indexPath)
             let label = UILabel()
             label.text = indexPath.section == 0 ? "Cuisines" : "Diets"
             label.textAlignment = .left
@@ -113,8 +114,12 @@ class BaseViewController: UIViewController, UICollectionViewDelegate, UICollecti
             label.font = label.font.withSize(12)
             label.sizeToFit()
             reusableview?.addSubview(label)
+            return reusableview!
+        } else {
+            let reusableview:UICollectionReusableView? = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "footerCell", for: indexPath)
+            return reusableview!
         }
-        return reusableview!
+        
     }
     
     // MARK: Button Actions
