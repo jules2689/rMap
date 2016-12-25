@@ -67,7 +67,7 @@ class FirstViewController: BaseViewController, MGLMapViewDelegate, CLLocationMan
 
     // MARK: Restaurant Delegates
     
-    func restaurantsDidFinishFetch(sender restaurantsInstance: Restaurants) {
+    func restaurantsDidFinishFetch(sender restaurantsInstance: RestaurantsApi) {
         for restaurant in restaurantsInstance.restaurants {
             if (restaurant.latitude != nil && restaurant.longitude != nil) {
                 let marker = CustomPointAnnotation()

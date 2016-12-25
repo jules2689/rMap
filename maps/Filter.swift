@@ -10,20 +10,48 @@ import Foundation
 
 class Filter {
     var restaurants = Array<Restaurant>()
-    var costs: [String: Bool] = ["$": true, "$$": true, "$$$": true]
+    var costs: [String: Bool] = [:]
     var cuisines: [String: Bool] = [:]
     var diets: [String: Bool] = [:]
     
     // TODO : Save selection between launches
     init(restaurants: Array<Restaurant>) {
         self.restaurants = restaurants
+        let defaults = UserDefaults.standard
+
+        for cost in ["$", "$$", "$$$"] {
+            let key = "filter-cost-" + cost
+            if defaults.object(forKey: key) != nil {
+                self.costs[cost] = defaults.bool(forKey: key)
+            } else {
+                // Start Costs off as true
+                self.costs[cost] = true
+                defaults.set(true, forKey: key)
+            }
+        }
+        
         let cuisines = filtered(filter: "Cuisine")
         for cuisine in cuisines {
-            self.cuisines[cuisine] = true
+            let key = "filter-cuisine-" + cuisine
+            if defaults.object(forKey: key) != nil {
+                self.cuisines[cuisine] = defaults.bool(forKey: key)
+            } else {
+                // Start Cuisines off as true
+                self.cuisines[cuisine] = true
+                defaults.set(true, forKey: key)
+            }
         }
+
         let diets = filtered(filter: "Diet")
         for diet in diets {
-            self.diets[diet] = true
+            let key = "filter-diet-" + diet
+            if defaults.object(forKey: key) != nil {
+                self.diets[diet] = defaults.bool(forKey: key)
+            } else {
+                // Start Diets off as false
+                self.diets[diet] = false
+                defaults.set(false, forKey: key)
+            }
         }
     }
     
@@ -69,8 +97,9 @@ class Filter {
                 if isEnabled {
                     matchesDiet = (matchesDiet && ($0.diet?.contains(diet))!)
                 }
+                if !matchesDiet { break }
             }
-            matches = matches && matchesCuisine
+            matches = matches && matchesDiet
             
             return matches
         })
@@ -90,15 +119,19 @@ class Filter {
     }
     
     func toggle(section: String, option: String) {
+        let defaults = UserDefaults.standard
         switch section {
             case "Cost":
-              self.costs[option] = !self.costs[option]!
+                self.costs[option] = !self.costs[option]!
+                defaults.set(self.costs[option], forKey: "filter-cost-" + option)
                 break
             case "Cuisine":
                 self.cuisines[option] = !self.cuisines[option]!
+                defaults.set(self.cuisines[option], forKey: "filter-cuisine-" + option)
                 break
             case "Diet":
                 self.diets[option] = !self.diets[option]!
+                defaults.set(self.diets[option], forKey: "filter-diet-" + option)
                 break
             default:
                 break

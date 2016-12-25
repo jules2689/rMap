@@ -12,20 +12,19 @@ import UIKit
 import CoreLocation
 
 class BaseViewController: UIViewController {
-    var restaurants: Restaurants!
+    var restaurants: RestaurantsApi!
     var selectedRestaurant:Restaurant? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        restaurants = Restaurants.sharedInstance
+        restaurants = RestaurantsApi.sharedInstance
     }
     
     func presentModal(restaurant: Restaurant) {
         if let customView:CustomCalloutView = UINib(nibName: "CustomCalloutView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? CustomCalloutView {
             let name = restaurant.name
-            if let image = self.restaurants.imageForRestaurant(name: name!) {
-                customView.setViewsWith(restaurant: restaurant, image: image)
-            }
+            customView.setViewsWith(restaurant: restaurant, image: self.restaurants.imageForRestaurant(name: name!))
+
             customView.closeButton.target = self
             customView.closeButton.action = #selector(closeButtonPressed)
             

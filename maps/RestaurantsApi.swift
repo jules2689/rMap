@@ -11,16 +11,16 @@ import UIKit
 import ObjectMapper
 
 protocol RestaurantsDelegate: class {
-    func restaurantsDidFinishFetch(sender: Restaurants)
+    func restaurantsDidFinishFetch(sender: RestaurantsApi)
 }
 
-class Restaurants {
+class RestaurantsApi {
     var restaurants = Array<Restaurant>()
     var imageCache: NSCache<AnyObject, AnyObject>!
     var delegates = Array<RestaurantsDelegate>()
     
-    static let sharedInstance : Restaurants = {
-        let instance = Restaurants()
+    static let sharedInstance : RestaurantsApi = {
+        let instance = RestaurantsApi()
         return instance
     }()
     
@@ -74,6 +74,7 @@ class Restaurants {
             do {
                 let jsonData = try JSONSerialization.jsonObject(with: responseData, options:[]) as? [String: Array<Any>]
                 self.restaurants = Mapper<Restaurant>().mapArray(JSONObject: jsonData?["records"])!
+                self.cacheImages(restaurants: self.restaurants)
                 for delegate in self.delegates {
                     delegate.restaurantsDidFinishFetch(sender: self)
                 }

@@ -123,7 +123,7 @@ class SecondViewController: BaseViewController, UITableViewDataSource, UITableVi
 
     // MARK: Restaurant Delegate
 
-    func restaurantsDidFinishFetch(sender: Restaurants) {
+    func restaurantsDidFinishFetch(sender: RestaurantsApi) {
         self.tableView.reloadData()
     }
     

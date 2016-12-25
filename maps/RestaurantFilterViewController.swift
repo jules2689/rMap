@@ -22,8 +22,26 @@ class RestaurantFilterViewController: BaseViewController, UITableViewDataSource,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let height = self.rows().count * Int(self.tableView.rowHeight)
+        var height = self.rows().count * Int(self.tableView.rowHeight) + 28
+        
+        let heightCutOff = Int(UIScreen.main.bounds.size.height * 0.67)
+        if height > heightCutOff {
+            height = heightCutOff
+            self.tableView.isScrollEnabled = true
+            self.tableView.showsVerticalScrollIndicator = true
+        } else {
+            self.tableView.isScrollEnabled = false
+            self.tableView.showsVerticalScrollIndicator = false
+        }
+
         self.preferredContentSize = CGSize(width: 300, height: height)
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if filterSection == "Diet" {
+            return "Match all of:"
+        }
+        return "Match any of:"
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
