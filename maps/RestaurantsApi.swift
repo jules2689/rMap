@@ -34,7 +34,7 @@ class RestaurantsApi {
 
     private func fetchRestaurants(offset: String?) {
         let airtableAppID = "appIMhRSxIBeDVPiv";
-        let airtableAPIKey = "";
+        let airtableAPIKey = "keynKoJjs79VHTt5c";
 
         // Prepare the URL request.
         var url = "https://api.airtable.com/v0/\(airtableAppID)/Restaurants?sort%5B0%5D%5Bfield%5D=Name&sort%5B0%5D%5Bdirection%5D=asc"
