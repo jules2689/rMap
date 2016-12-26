@@ -100,15 +100,15 @@ class RestaurantsApi {
     
     // MARK: Image Handling
     
-    func imageForRestaurant(name: String) -> UIImage? {
-        if let image = imageCache.object(forKey: name as AnyObject) as? UIImage {
+    func imageForPicture(picture: Picture) -> UIImage? {
+        if let image = imageCache.object(forKey: picture.id as AnyObject) as? UIImage {
             return image
         } else {
-            let filepath = self.getDocumentsDirectory().appendingPathComponent(name + ".png").relativePath
+            let filepath = self.getDocumentsDirectory().appendingPathComponent(picture.id + ".png").relativePath
             let data = FileManager.default.contents(atPath: filepath)
             if data != nil {
                 let image = UIImage(data: data!)
-                self.imageCache.setObject(image!, forKey: name as AnyObject)
+                self.imageCache.setObject(image!, forKey: picture.id as AnyObject)
                 return image
             }
             return nil
@@ -118,13 +118,13 @@ class RestaurantsApi {
     private func cacheImages(restaurants: Array<Restaurant>) {
         DispatchQueue.global(qos: .background).async {
             for restaurant in restaurants {
-                if let picture = restaurant.pictures?[0] {
+                for picture in restaurant.pictures! {
                     if let url = NSURL(string: picture.url) {
                         if let data = NSData(contentsOf: url as URL) {
                             if let image = UIImage(data: data as Data) {
-                                self.imageCache.setObject(image, forKey: restaurant.name as AnyObject)
+                                self.imageCache.setObject(image, forKey: picture.id as AnyObject)
                                 if let imageData = UIImagePNGRepresentation(image) {
-                                    let filename = self.getDocumentsDirectory().appendingPathComponent(restaurant.name! + ".png")
+                                    let filename = self.getDocumentsDirectory().appendingPathComponent(picture.id + ".png")
                                     try? imageData.write(to: filename)
                                 }
                             }

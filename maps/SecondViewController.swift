@@ -112,16 +112,16 @@ class SecondViewController: BaseViewController, UITableViewDataSource, UITableVi
         
         if let metadataLabel = (cell?.viewWithTag(4) as? UILabel) {
             var opts = Array<String>()
-            if restaurant.cost != nil {
-                opts.append(restaurant.cost!)
-            }
             if restaurant.rating != nil {
                 opts.append(NSNumber.init(value: restaurant.rating!).stringValue)
+            }
+            if restaurant.cost != nil {
+                opts.append(restaurant.cost!)
             }
             metadataLabel.text = opts.joined(separator: "   ")
         }
 
-        if let image = self.restaurants.imageForRestaurant(name: restaurant.name!) {
+        if let image = self.restaurants.imageForPicture(picture: (restaurant.pictures?[0])!) {
             if let imageView = (cell?.viewWithTag(1) as? UIImageView) {
                 imageView.image = image
             }

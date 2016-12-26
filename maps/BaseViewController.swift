@@ -22,8 +22,7 @@ class BaseViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func presentModal(restaurant: Restaurant) {
         if let customView:CustomCalloutView = UINib(nibName: "CustomCalloutView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? CustomCalloutView {
-            let name = restaurant.name
-            customView.setViewsWith(restaurant: restaurant, image: self.restaurants.imageForRestaurant(name: name!))
+            customView.setViewsWith(restaurant: restaurant, image: self.restaurants.imageForPicture(picture: (restaurant.pictures?[0])!))
             selectedRestaurant = restaurant
 
             // Setup Button Targets

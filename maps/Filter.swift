@@ -19,7 +19,8 @@ class Filter {
         self.restaurants = restaurants
         let defaults = UserDefaults.standard
 
-        for cost in ["$", "$$", "$$$"] {
+        let costs = filtered(filter: "Cost")
+        for cost in costs {
             let key = "filter-cost-" + cost
             if defaults.object(forKey: key) != nil {
                 self.costs[cost] = defaults.bool(forKey: key)
