@@ -166,9 +166,11 @@ class BaseViewController: UIViewController, UICollectionViewDelegate, UICollecti
     // MARK: Scroll View Delegate
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
-        self.customView?.pageControl.currentPage = Int(pageNumber)
-        scrollView.contentOffset = CGPoint(x: scrollView.frame.size.width * pageNumber, y: 0)
+        if scrollView == customView?.scrollView {
+            let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
+            self.customView?.pageControl.currentPage = Int(pageNumber)
+            scrollView.contentOffset = CGPoint(x: scrollView.frame.size.width * pageNumber, y: 0)
+        }
     }
 
     // MARK: Button Actions
