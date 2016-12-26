@@ -27,6 +27,7 @@
 		739DC3121E0F8058005B497D /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739DC3111E0F8058005B497D /* Restaurant.swift */; };
 		739DC3141E0F8771005B497D /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739DC3131E0F8771005B497D /* Picture.swift */; };
 		739DC3161E0F95D4005B497D /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739DC3151E0F95D4005B497D /* Filter.swift */; };
+		73DB4D071E10F86500C44F4F /* UIWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DB4D061E10F86500C44F4F /* UIWebViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -146,6 +147,7 @@
 		739DC3111E0F8058005B497D /* Restaurant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
 		739DC3131E0F8771005B497D /* Picture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
 		739DC3151E0F95D4005B497D /* Filter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
+		73DB4D061E10F86500C44F4F /* UIWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIWebViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -259,6 +261,7 @@
 				735AE55F1E0DD81500AEF388 /* BaseViewController.swift */,
 				736531911E0CA1D900C59A6C /* Main.storyboard */,
 				739DC3151E0F95D4005B497D /* Filter.swift */,
+				73DB4D061E10F86500C44F4F /* UIWebViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -511,6 +514,7 @@
 				739DC3121E0F8058005B497D /* Restaurant.swift in Sources */,
 				7365318C1E0CA1D900C59A6C /* AppDelegate.swift in Sources */,
 				736531D21E0CBB6300C59A6C /* CustomPointAnnotation.swift in Sources */,
+				73DB4D071E10F86500C44F4F /* UIWebViewController.swift in Sources */,
 				735AE5601E0DD81500AEF388 /* BaseViewController.swift in Sources */,
 				739DC2F31E0F44D5005B497D /* RestaurantFilterViewController.swift in Sources */,
 				739DC3141E0F8771005B497D /* Picture.swift in Sources */,
