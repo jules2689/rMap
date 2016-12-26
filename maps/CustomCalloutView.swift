@@ -15,8 +15,10 @@ class CustomCalloutView: UIView {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var costLabel: UILabel!
     @IBOutlet weak var ratingLabel: UILabel!
-    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var notes: UITextView!
+    
+    @IBOutlet weak var imageCollectionView: UICollectionView!
+    @IBOutlet weak var pageControl: UIPageControl!
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -51,11 +53,6 @@ class CustomCalloutView: UIView {
         if let notes = restaurant.notes {
             self.notes.text = notes
             self.notes.sizeToFit()
-        }
-
-        if image != nil {
-            self.imageView.image = image
-            self.imageView.contentMode = UIViewContentMode.scaleAspectFill
         }
     }
 }

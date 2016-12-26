@@ -11,9 +11,10 @@ import Foundation
 import UIKit
 import CoreLocation
 
-class BaseViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class BaseViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate {
     var restaurants: RestaurantsApi!
     var selectedRestaurant:Restaurant? = nil
+    var customView:CustomCalloutView? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +36,13 @@ class BaseViewController: UIViewController, UICollectionViewDelegate, UICollecti
             customView.yelpButton.target = self
             customView.yelpButton.action = #selector(viewOnYelpPressed)
             
+            // Image Collection View
+            customView.imageCollectionView.delegate = self
+            customView.imageCollectionView.dataSource = self
+            customView.imageCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "collectionImageCell")
+            customView.pageControl.numberOfPages = (selectedRestaurant?.pictures?.count)!
+            customView.imageCollectionView.isScrollEnabled = customView.pageControl.numberOfPages > 1
+            
             // Collection View Delegate/Datasource
             customView.collectionView.delegate = self
             customView.collectionView.dataSource = self
@@ -47,6 +55,8 @@ class BaseViewController: UIViewController, UICollectionViewDelegate, UICollecti
             let modalViewController = UIViewController()
             modalViewController.view = customView
             modalViewController.modalPresentationStyle = .overCurrentContext
+            
+            self.customView = customView
             self.present(modalViewController, animated: true, completion: nil)
         }
     }
@@ -69,49 +79,71 @@ class BaseViewController: UIViewController, UICollectionViewDelegate, UICollecti
     // MARK: Collection View Delegate/Datasource
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as UICollectionViewCell? {
-            // Setup Cell
-            cell.contentView.backgroundColor = UIColor.init(colorLiteralRed: 0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
-            cell.layer.cornerRadius = 5
-            cell.clipsToBounds = true
-            
-            // Setup Label
-            let label = UILabel()
-            if indexPath.section == 0 && ((self.selectedRestaurant?.cuisine) != nil) && !(self.selectedRestaurant?.cuisine?.isEmpty)! {
-                label.text = self.selectedRestaurant?.cuisine?[indexPath.row]
-            } else {
-                label.text = self.selectedRestaurant?.diet?[indexPath.row]
+        if collectionView.tag == 11 {
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionImageCell", for: indexPath) as UICollectionViewCell? {
+                // Setup imageView
+                let imageView = UIImageView()
+                imageView.image = self.restaurants.imageForPicture(picture: (self.selectedRestaurant?.pictures?[indexPath.row])!)
+                imageView.contentMode = UIViewContentMode.scaleAspectFill
+                imageView.frame = cell.contentView.frame
+                cell.contentView.clipsToBounds = true
+                cell.contentView.addSubview(imageView)
+                
+                return cell
             }
-            label.textAlignment = .center
-            label.textColor = .white
-            label.frame = CGRect.init(x: 5, y: 0, width: cell.frame.size.width - 10, height: cell.frame.size.height)
-            label.font = label.font.withSize(12)
-            cell.contentView.addSubview(label)
-            
-            return cell
+        } else {
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as UICollectionViewCell? {
+                // Setup Cell
+                cell.contentView.backgroundColor = UIColor.init(colorLiteralRed: 0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
+                cell.layer.cornerRadius = 5
+                cell.clipsToBounds = true
+                
+                // Setup Label
+                let label = UILabel()
+                if indexPath.section == 0 && ((self.selectedRestaurant?.cuisine) != nil) && !(self.selectedRestaurant?.cuisine?.isEmpty)! {
+                    label.text = self.selectedRestaurant?.cuisine?[indexPath.row]
+                } else {
+                    label.text = self.selectedRestaurant?.diet?[indexPath.row]
+                }
+                label.textAlignment = .center
+                label.textColor = .white
+                label.frame = CGRect.init(x: 5, y: 0, width: cell.frame.size.width - 10, height: cell.frame.size.height)
+                label.font = label.font.withSize(12)
+                cell.contentView.addSubview(label)
+                
+                return cell
+            }
         }
         return UICollectionViewCell.init()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // First section will always be cuisine if not nil/empty, otherwise it will be diet
-        if section == 0 {
-            if ((self.selectedRestaurant?.cuisine) != nil) && !(self.selectedRestaurant?.cuisine?.isEmpty)! {
-                return (self.selectedRestaurant?.cuisine?.count)!
+        if collectionView.tag == 11 {
+            return (self.selectedRestaurant?.pictures?.count)!
+        } else {
+            // First section will always be cuisine if not nil/empty, otherwise it will be diet
+            if section == 0 {
+                if ((self.selectedRestaurant?.cuisine) != nil) && !(self.selectedRestaurant?.cuisine?.isEmpty)! {
+                    return (self.selectedRestaurant?.cuisine?.count)!
+                }
             }
+            return (self.selectedRestaurant?.diet?.count)!
         }
-        return (self.selectedRestaurant?.diet?.count)!
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        var sections = 0
-        if ((self.selectedRestaurant?.cuisine) != nil) && !(self.selectedRestaurant?.cuisine?.isEmpty)! {
-            sections += 1
+        if collectionView.tag == 11 {
+            return 1
+        } else {
+            var sections = 0
+            if ((self.selectedRestaurant?.cuisine) != nil) && !(self.selectedRestaurant?.cuisine?.isEmpty)! {
+                sections += 1
+            }
+            if ((self.selectedRestaurant?.diet) != nil) && !(self.selectedRestaurant?.diet?.isEmpty)! {
+                sections += 1
+            }
+            return sections
         }
-        if ((self.selectedRestaurant?.diet) != nil) && !(self.selectedRestaurant?.diet?.isEmpty)! {
-            sections += 1
-        }
-        return sections
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -129,9 +161,16 @@ class BaseViewController: UIViewController, UICollectionViewDelegate, UICollecti
             let reusableview:UICollectionReusableView? = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "footerCell", for: indexPath)
             return reusableview!
         }
-        
     }
     
+    // MARK: Scroll View Delegate
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
+        self.customView?.pageControl.currentPage = Int(pageNumber)
+        scrollView.contentOffset = CGPoint(x: scrollView.frame.size.width * pageNumber, y: 0)
+    }
+
     // MARK: Button Actions
     
     func closeButtonPressed() {
