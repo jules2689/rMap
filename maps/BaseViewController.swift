@@ -50,6 +50,15 @@ class BaseViewController: UIViewController, UICollectionViewDelegate, UICollecti
             customView.collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader.self, withReuseIdentifier: "headerCell")
             customView.collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter.self, withReuseIdentifier: "footerCell")
             
+            var scrollEnabled = false
+            if selectedRestaurant?.cuisine != nil {
+                scrollEnabled = scrollEnabled || (selectedRestaurant?.cuisine?.count)! > 3
+            }
+            if selectedRestaurant?.diet != nil {
+                scrollEnabled = scrollEnabled || (selectedRestaurant?.diet?.count)! > 3
+            }
+            customView.collectionView.isScrollEnabled = scrollEnabled
+            
             // Frames and Presenteance
             customView.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.x + 100, width: self.view.frame.size.width, height: self.view.frame.size.height - 100)
             let modalViewController = UIViewController()
@@ -166,7 +175,7 @@ class BaseViewController: UIViewController, UICollectionViewDelegate, UICollecti
     // MARK: Scroll View Delegate
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if scrollView == customView?.scrollView {
+        if scrollView == customView?.imageCollectionView {
             let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
             self.customView?.pageControl.currentPage = Int(pageNumber)
             scrollView.contentOffset = CGPoint(x: scrollView.frame.size.width * pageNumber, y: 0)

@@ -83,47 +83,54 @@ class Filter {
             
             // Match agaisnt cost
             // Cost is an OR operation since we want to match against any of them
-            var matchesCost = false
-            for (cost, isEnabled) in costs {
-                if isEnabled {
-                    matchesCost = (matchesCost || cost == $0.cost)
+            if $0.cost != nil {
+                var matchesCost = false
+                for (cost, isEnabled) in costs {
+                    if isEnabled {
+                        matchesCost = (matchesCost || cost == $0.cost)
+                    }
                 }
+                matches = matches && matchesCost
+                if !matches { return false }
             }
-            matches = matches && matchesCost
-            if !matches { return false }
             
             // Match against cuisine
             // Cuisine is an OR operation to match against any, since most won't share cuisines
-            var matchesCuisine = false
-            for (cuisine, isEnabled) in cuisines {
-                if isEnabled {
-                    matchesCuisine = (matchesCuisine || ($0.cuisine?.contains(cuisine))!)
+            if $0.cuisine != nil {
+                var matchesCuisine = false
+                for (cuisine, isEnabled) in cuisines {
+                    if isEnabled {
+                        matchesCuisine = (matchesCuisine || ($0.cuisine?.contains(cuisine))!)
+                    }
                 }
+                matches = matches && matchesCuisine
+                if !matches { return false }
             }
-            matches = matches && matchesCuisine
-            if !matches { return false }
             
             // Match against city
             // City is an OR operation to match against any, since they won't share cities
-            var matchesCity = false
-            for (city, isEnabled) in cities {
-                if isEnabled {
-                    matchesCity = (matchesCity || $0.city == city)
+            if $0.city != nil {
+                var matchesCity = false
+                for (city, isEnabled) in cities {
+                    if isEnabled {
+                        matchesCity = (matchesCity || $0.city == city)
+                    }
                 }
+                matches = matches && matchesCity
+                if !matches { return false }
             }
-            matches = matches && matchesCity
-            if !matches { return false }
-            
             // Match against diets
             // Diet is an AND operation since you want to match agaisnt all of them
-            var matchesDiet = true
-            for (diet, isEnabled) in diets {
-                if isEnabled {
-                    matchesDiet = (matchesDiet && ($0.diet?.contains(diet))!)
+            if $0.diet != nil {
+                var matchesDiet = true
+                for (diet, isEnabled) in diets {
+                    if isEnabled {
+                        matchesDiet = (matchesDiet && ($0.diet?.contains(diet))!)
+                    }
+                    if !matchesDiet { break }
                 }
-                if !matchesDiet { break }
+                matches = matches && matchesDiet
             }
-            matches = matches && matchesDiet
             
             return matches
         })

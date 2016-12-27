@@ -29,6 +29,7 @@ class SecondViewController: BaseViewController, UITableViewDataSource, UITableVi
 
         // Setup Searchbar Visuals
         self.searchController.searchBar.barTintColor = UIColor.init(colorLiteralRed: 33/255.0, green: 33/255.0, blue: 33/255.0, alpha: 1.0)
+        self.searchController.searchBar.tintColor = .white
         self.searchController.searchBar.layer.borderWidth = 0
         self.tableView.tableHeaderView = self.searchController.searchBar
         

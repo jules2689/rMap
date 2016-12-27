@@ -27,6 +27,8 @@
 		739DC3121E0F8058005B497D /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739DC3111E0F8058005B497D /* Restaurant.swift */; };
 		739DC3141E0F8771005B497D /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739DC3131E0F8771005B497D /* Picture.swift */; };
 		739DC3161E0F95D4005B497D /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739DC3151E0F95D4005B497D /* Filter.swift */; };
+		73DB4D0A1E12152800C44F4F /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = 73DB4D091E12152800C44F4F /* Secrets.plist */; };
+		73DB4D131E12156000C44F4F /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DB4D121E12156000C44F4F /* Secrets.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -146,6 +148,8 @@
 		739DC3111E0F8058005B497D /* Restaurant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
 		739DC3131E0F8771005B497D /* Picture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
 		739DC3151E0F95D4005B497D /* Filter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
+		73DB4D091E12152800C44F4F /* Secrets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Secrets.plist; sourceTree = "<group>"; };
+		73DB4D121E12156000C44F4F /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,6 +202,7 @@
 		7365318A1E0CA1D900C59A6C /* maps */ = {
 			isa = PBXGroup;
 			children = (
+				73DB4D141E12177700C44F4F /* Secrets */,
 				739589011E0CF6B0006E4446 /* Controllers */,
 				739589031E0CF6C5006E4446 /* Views */,
 				739DC3101E0F8046005B497D /* Api */,
@@ -289,6 +294,15 @@
 				736531CD1E0CB1D200C59A6C /* RestaurantsApi.swift */,
 			);
 			name = Api;
+			sourceTree = "<group>";
+		};
+		73DB4D141E12177700C44F4F /* Secrets */ = {
+			isa = PBXGroup;
+			children = (
+				73DB4D091E12152800C44F4F /* Secrets.plist */,
+				73DB4D121E12156000C44F4F /* Secrets.swift */,
+			);
+			name = Secrets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -461,6 +475,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				736531D41E0CBEF400C59A6C /* CustomCalloutView.xib in Resources */,
+				73DB4D0A1E12152800C44F4F /* Secrets.plist in Resources */,
 				736531981E0CA1DA00C59A6C /* LaunchScreen.storyboard in Resources */,
 				736531951E0CA1DA00C59A6C /* Assets.xcassets in Resources */,
 				736531931E0CA1D900C59A6C /* Main.storyboard in Resources */,
@@ -505,6 +520,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				736531CE1E0CB1D200C59A6C /* RestaurantsApi.swift in Sources */,
+				73DB4D131E12156000C44F4F /* Secrets.swift in Sources */,
 				736531901E0CA1D900C59A6C /* SecondViewController.swift in Sources */,
 				739DC3161E0F95D4005B497D /* Filter.swift in Sources */,
 				736531DE1E0CD44F00C59A6C /* CustomCalloutView.swift in Sources */,

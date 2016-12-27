@@ -27,12 +27,9 @@ class RestaurantFilterViewController: BaseViewController, UITableViewDataSource,
         let heightCutOff = Int(UIScreen.main.bounds.size.height * 0.67)
         if height > heightCutOff {
             height = heightCutOff
-            self.tableView.isScrollEnabled = true
-            self.tableView.showsVerticalScrollIndicator = true
-        } else {
-            self.tableView.isScrollEnabled = false
-            self.tableView.showsVerticalScrollIndicator = false
         }
+        self.tableView.isScrollEnabled = height > heightCutOff
+        self.tableView.showsVerticalScrollIndicator = height > heightCutOff
 
         self.preferredContentSize = CGSize(width: 300, height: height)
     }
@@ -63,18 +60,20 @@ class RestaurantFilterViewController: BaseViewController, UITableViewDataSource,
         self.delegate?.restaurantFilterViewDidFilter(sender: self)
     }
     
+    // MARK: Helpers
+    
     func rows() -> Array<String> {
         if let fil = filter {
             if let filtered = self.filterSection {
                 switch filtered {
                 case "Cost":
-                    return [String](fil.costs.keys.elements).sorted { $0 < $1 }
+                    return fil.costs.keys.elements.sorted { $0 < $1 }
                 case "Cuisine":
-                    return [String](fil.cuisines.keys.elements).sorted { $0 < $1 }
+                    return fil.cuisines.keys.elements.sorted { $0 < $1 }
                 case "Diet":
-                    return [String](fil.diets.keys.elements).sorted { $0 < $1 }
+                    return fil.diets.keys.elements.sorted { $0 < $1 }
                 case "City":
-                    return [String](fil.cities.keys.elements).sorted { $0 < $1 }
+                    return fil.cities.keys.elements.sorted { $0 < $1 }
                 default:
                     return []
                 }
