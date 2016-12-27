@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Mapbox
 
 extension UIApplication {
     class func topViewController(controller: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
@@ -33,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        MGLAccountManager.setAccessToken(Secrets.secrets()["MGLMapboxAccessToken"] as? String)
         return true
     }
 

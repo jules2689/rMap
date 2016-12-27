@@ -312,6 +312,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 736531B21E0CA1DA00C59A6C /* Build configuration list for PBXNativeTarget "maps" */;
 			buildPhases = (
+				73DB4D151E1219F500C44F4F /* Decrypt Secrets */,
 				736531841E0CA1D900C59A6C /* Sources */,
 				736531851E0CA1D900C59A6C /* Frameworks */,
 				736531861E0CA1D900C59A6C /* Resources */,
@@ -511,6 +512,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework/strip-frameworks.sh\"";
+		};
+		73DB4D151E1219F500C44F4F /* Decrypt Secrets */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Decrypt Secrets";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = bin/secrets;
 		};
 /* End PBXShellScriptBuildPhase section */
 
