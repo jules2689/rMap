@@ -65,6 +65,7 @@ class BaseViewController: UIViewController, UICollectionViewDelegate, UICollecti
             modalViewController.view = customView
             modalViewController.modalPresentationStyle = .overCurrentContext
             
+            customView.scrollView.delegate = self
             self.customView = customView
             self.present(modalViewController, animated: true, completion: nil)
         }
@@ -179,6 +180,14 @@ class BaseViewController: UIViewController, UICollectionViewDelegate, UICollecti
             let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
             self.customView?.pageControl.currentPage = Int(pageNumber)
             scrollView.contentOffset = CGPoint(x: scrollView.frame.size.width * pageNumber, y: 0)
+        }
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView == customView?.scrollView {
+            if (scrollView.contentOffset.y < -120) {
+                closeButtonPressed()
+            }
         }
     }
 
