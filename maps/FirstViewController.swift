@@ -32,6 +32,7 @@ class FirstViewController: BaseViewController, MGLMapViewDelegate, CLLocationMan
         
         mapView = MGLMapView(frame: self.view.bounds, styleURL:  MGLStyle.darkStyleURL(withVersion: 9))
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        mapView.tintColor = .darkGray
         mapView.delegate = self;
 
         // Set the map’s center coordinate and zoom level.

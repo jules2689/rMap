@@ -73,14 +73,16 @@ class Filter {
             var matches = true
             
             // Perform initial search
-            if !(searchText?.isEmpty)! {
-                let name = $0.name
-                if let search = searchText {
-                    matches = matches && (name?.lowercased().contains(search.lowercased()))!
+            if searchText != nil {
+                if !(searchText?.isEmpty)! {
+                    let name = $0.name
+                    if let search = searchText {
+                        matches = matches && (name?.lowercased().contains(search.lowercased()))!
+                    }
+                    if !matches { return false }
                 }
-                if !matches { return false }
             }
-            
+                
             // Match agaisnt cost
             // Cost is an OR operation since we want to match against any of them
             if $0.cost != nil {
@@ -172,6 +174,21 @@ class Filter {
                 break
             default:
                 break
+        }
+    }
+
+    func isSectionFiltered(section: String) -> Bool {
+        switch section {
+        case "Cost":
+            return Array<Bool>(self.costs.values).contains(false)
+        case "Cuisine":
+            return Array<Bool>(self.cuisines.values).contains(false)
+        case "Diet":
+            return Array<Bool>(self.diets.values).contains(true)
+        case "City":
+            return Array<Bool>(self.cities.values).contains(false)
+        default:
+            return false
         }
     }
 

@@ -27,9 +27,12 @@ class RestaurantFilterViewController: BaseViewController, UITableViewDataSource,
         let heightCutOff = Int(UIScreen.main.bounds.size.height * 0.67)
         if height > heightCutOff {
             height = heightCutOff
+            self.tableView.isScrollEnabled = true
+            self.tableView.showsVerticalScrollIndicator = true
+        } else {
+            self.tableView.isScrollEnabled = false
+            self.tableView.showsVerticalScrollIndicator = false
         }
-        self.tableView.isScrollEnabled = height > heightCutOff
-        self.tableView.showsVerticalScrollIndicator = height > heightCutOff
 
         self.preferredContentSize = CGSize(width: 300, height: height)
     }

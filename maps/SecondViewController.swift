@@ -19,8 +19,9 @@ class SecondViewController: BaseViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        self.filteredRestaurants = self.restaurants.restaurants
         self.filter = Filter.init(restaurants: self.restaurants.restaurants)
+        self.filteredRestaurants = (filter?.filterRestaurants(searchText: nil))!
+        self.resetTitlesForFilterControl()
         
         // Delegate and property setup
         self.searchController.searchResultsUpdater = self
@@ -41,21 +42,7 @@ class SecondViewController: BaseViewController, UITableViewDataSource, UITableVi
     // MARK: Filter control
     
     @IBAction func filterControlDidChange(sender: AnyObject) {
-        let selectedSegment = self.filterControl.titleForSegment(at: self.filterControl.selectedSegmentIndex)
-        switch selectedSegment! {
-        case "Cuisine":
-            presentPopover()
-            break
-        case "Cost":
-            presentPopover()
-            break
-        case "Diet":
-            presentPopover()
-            break
-        default:
-            presentPopover()
-            break
-        }
+        presentPopover()
     }
     
     // MARK: Popover
@@ -63,7 +50,7 @@ class SecondViewController: BaseViewController, UITableViewDataSource, UITableVi
     func presentPopover() {
         if let popController = (self.storyboard?.instantiateViewController(withIdentifier: "RestaurantFilter"))! as? RestaurantFilterViewController {
             // Setup data, filters, and delegates
-            popController.filterSection = self.filterControl.titleForSegment(at: self.filterControl.selectedSegmentIndex)
+            popController.filterSection = self.filterControl.titleForSegment(at: self.filterControl.selectedSegmentIndex)?.replacingOccurrences(of: " •", with: "")
             popController.filter = self.filter
             popController.delegate = self
 
@@ -151,9 +138,23 @@ class SecondViewController: BaseViewController, UITableViewDataSource, UITableVi
     
     func restaurantFilterViewDidFilter(sender: RestaurantFilterViewController) {
         self.filteredRestaurants = (filter?.filterRestaurants(searchText: searchController.searchBar.text!))!
+        self.resetTitlesForFilterControl()
         tableView.reloadData()
     }
     
+    func resetTitlesForFilterControl() {
+        for i in 0...self.filterControl.numberOfSegments - 1 {
+            let title = self.filterControl.titleForSegment(at: i)
+            let baseTitle = title!.replacingOccurrences(of: " •", with: "")
+            let filtered = (self.filter?.isSectionFiltered(section: baseTitle))!
+            if filtered && !(title?.contains("•"))! {
+                self.filterControl.setTitle(title! + " •", forSegmentAt: i)
+            } else if !filtered {
+                self.filterControl.setTitle(baseTitle, forSegmentAt: i)
+            }
+        }
+    }
+
     // MARK: Search Results
 
     public func updateSearchResults(for searchController: UISearchController) {
