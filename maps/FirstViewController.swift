@@ -30,8 +30,8 @@ class FirstViewController: BaseViewController, MGLMapViewDelegate, CLLocationMan
             locationManager.startUpdatingLocation()
         }
         
+        mapView = MGLMapView(frame: self.view.bounds, styleURL:  MGLStyle.darkStyleURL(withVersion: 9))
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        mapView.tintColor = .darkGray
         mapView.delegate = self;
 
         // Set the map’s center coordinate and zoom level.
@@ -57,7 +57,7 @@ class FirstViewController: BaseViewController, MGLMapViewDelegate, CLLocationMan
             self.presentModal(restaurant: customAnnotation.restaurant!)
         }
     }
-    
+
     func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
         return false
     }
@@ -77,9 +77,7 @@ class FirstViewController: BaseViewController, MGLMapViewDelegate, CLLocationMan
                 marker.title = restaurant.name
                 marker.subtitle = restaurant.address
                 marker.restaurant = restaurant;
-                DispatchQueue.main.sync {
-                    mapView.addAnnotation(marker)
-                }
+                mapView.addAnnotation(marker)
             }
         }
     }
