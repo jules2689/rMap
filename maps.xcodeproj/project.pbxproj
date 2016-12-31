@@ -29,6 +29,8 @@
 		739DC3161E0F95D4005B497D /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739DC3151E0F95D4005B497D /* Filter.swift */; };
 		73DB4D0A1E12152800C44F4F /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = 73DB4D091E12152800C44F4F /* Secrets.plist */; };
 		73DB4D131E12156000C44F4F /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DB4D121E12156000C44F4F /* Secrets.swift */; };
+		7B9745CA1E17716A00DD0DD2 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B9745C91E17716A00DD0DD2 /* Crashlytics.framework */; };
+		7B9745CC1E17717900DD0DD2 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B9745CB1E17717900DD0DD2 /* Fabric.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -150,6 +152,8 @@
 		739DC3151E0F95D4005B497D /* Filter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		73DB4D091E12152800C44F4F /* Secrets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Secrets.plist; sourceTree = "<group>"; };
 		73DB4D121E12156000C44F4F /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		7B9745C91E17716A00DD0DD2 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		7B9745CB1E17717900DD0DD2 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,7 +161,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B9745CA1E17716A00DD0DD2 /* Crashlytics.framework in Frameworks */,
 				736531C11E0CA27800C59A6C /* Mapbox.framework in Frameworks */,
+				7B9745CC1E17717900DD0DD2 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,6 +241,8 @@
 		736531BB1E0CA21900C59A6C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7B9745CB1E17717900DD0DD2 /* Fabric.framework */,
+				7B9745C91E17716A00DD0DD2 /* Crashlytics.framework */,
 				736531C01E0CA27800C59A6C /* Mapbox.framework */,
 				739DC2F41E0F7F8C005B497D /* ObjectMapper.xcodeproj */,
 			);
@@ -319,6 +327,7 @@
 				736531C31E0CA27800C59A6C /* Embed Frameworks */,
 				736531C41E0CA28800C59A6C /* ShellScript */,
 				739DC30E1E0F801D005B497D /* Copy Frameworks */,
+				7B9745CD1E1771D600DD0DD2 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -377,7 +386,7 @@
 				TargetAttributes = {
 					736531871E0CA1D900C59A6C = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = Q3JFJLV3AW;
+						DevelopmentTeam = 89YFRFF33Z;
 						ProvisioningStyle = Automatic;
 					};
 					7365319D1E0CA1DA00C59A6C = {
@@ -526,6 +535,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = bin/secrets;
+		};
+		7B9745CD1E1771D600DD0DD2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "API_KEY=$(/usr/libexec/PlistBuddy -c \"Print :CrashlyticsApiToken\" \"${BUILT_PRODUCTS_DIR}/maps.app/Secrets.plist\")\necho \"FOUND API KEY $API_KEY\"\n\"${PROJECT_DIR}/Fabric.framework/run\" $API_KEY 646b9971084478da72c2116862804cfcf0f827a24159ff6cd66d1aa00015640b";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -698,7 +720,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
-				DEVELOPMENT_TEAM = Q3JFJLV3AW;
+				DEVELOPMENT_TEAM = 89YFRFF33Z;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/frameworks",
@@ -706,7 +728,7 @@
 				);
 				INFOPLIST_FILE = maps/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.julian.maps;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kevin.rmaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -717,7 +739,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
-				DEVELOPMENT_TEAM = Q3JFJLV3AW;
+				DEVELOPMENT_TEAM = 89YFRFF33Z;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/frameworks",
@@ -725,7 +747,7 @@
 				);
 				INFOPLIST_FILE = maps/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.julian.maps;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kevin.rmaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
