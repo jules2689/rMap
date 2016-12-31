@@ -15,7 +15,6 @@ protocol RestaurantsFilterDelegate: class {
 class RestaurantFilterViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet var tableView: UITableView!
     var filterSection: String? = nil
-    var filter: Filter? = nil
     var delegate:RestaurantsFilterDelegate?
     
     // MARK: Tableview Datasoure and Delegate

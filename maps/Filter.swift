@@ -14,8 +14,15 @@ class Filter {
     var cuisines: [String: Bool] = [:]
     var diets: [String: Bool] = [:]
     var cities: [String: Bool] = [:]
+    
+    var filteredRestaurants = Array<Restaurant>()
+    
+    static let sharedInstance : Filter = {
+        let instance = Filter()
+        return instance
+    }()
 
-    init(restaurants: Array<Restaurant>) {
+    func setRestaurants(restaurants: Array<Restaurant>) {
         self.restaurants = restaurants
         let defaults = UserDefaults.standard
 
@@ -66,6 +73,8 @@ class Filter {
                 defaults.set(false, forKey: key)
             }
         }
+        
+        self.filteredRestaurants = self.filterRestaurants(searchText: nil)
     }
     
     func filterRestaurants(searchText: String?) -> Array<Restaurant> {

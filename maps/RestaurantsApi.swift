@@ -101,6 +101,10 @@ class RestaurantsApi {
     // MARK: Image Handling
     
     func imageForPicture(picture: Picture) -> UIImage? {
+        return imageForPicture(picture: picture, cache: false)
+    }
+    
+    func imageForPicture(picture: Picture, cache: Bool) -> UIImage? {
         if let image = imageCache.object(forKey: picture.id as AnyObject) as? UIImage {
             return image
         } else {
@@ -108,7 +112,9 @@ class RestaurantsApi {
             let data = FileManager.default.contents(atPath: filepath)
             if data != nil {
                 let image = UIImage(data: data!)
-                self.imageCache.setObject(image!, forKey: picture.id as AnyObject)
+                if cache {
+                    self.imageCache.setObject(image!, forKey: picture.id as AnyObject)
+                }
                 return image
             }
             return nil
@@ -122,7 +128,6 @@ class RestaurantsApi {
                     if let url = NSURL(string: picture.url) {
                         if let data = NSData(contentsOf: url as URL) {
                             if let image = UIImage(data: data as Data) {
-                                self.imageCache.setObject(image, forKey: picture.id as AnyObject)
                                 if let imageData = UIImagePNGRepresentation(image) {
                                     let filename = self.getDocumentsDirectory().appendingPathComponent(picture.id + ".png")
                                     try? imageData.write(to: filename)

@@ -11,14 +11,28 @@ import Foundation
 import UIKit
 import CoreLocation
 
-class BaseViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate {
+class BaseViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, RestaurantsDelegate, UISearchResultsUpdating, UISearchBarDelegate {
     var restaurants: RestaurantsApi!
     var selectedRestaurant:Restaurant? = nil
     var customView:CustomCalloutView? = nil
+    var filter:Filter?
+    
+    let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         restaurants = RestaurantsApi.sharedInstance
+        self.filter = Filter.sharedInstance
+        
+        // Delegate and property setup
+        self.searchController.searchResultsUpdater = self
+        self.searchController.dimsBackgroundDuringPresentation = false
+        self.searchController.searchBar.delegate = self
+        
+        // Setup Searchbar Visuals
+        self.searchController.searchBar.barTintColor = UIColor.init(colorLiteralRed: 33/255.0, green: 33/255.0, blue: 33/255.0, alpha: 1.0)
+        self.searchController.searchBar.tintColor = .white
+        self.searchController.searchBar.layer.borderWidth = 0
     }
     
     func presentModal(restaurant: Restaurant) {
@@ -84,6 +98,16 @@ class BaseViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
             }
         }
+    }
+    
+    // MARK: Search Results
+    
+    public func updateSearchResults(for searchController: UISearchController) {
+        self.filter?.filteredRestaurants = (filter?.filterRestaurants(searchText: searchController.searchBar.text!))!
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.filter?.filteredRestaurants = self.restaurants.restaurants
     }
     
     // MARK: Collection View Delegate/Datasource
@@ -225,6 +249,16 @@ class BaseViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 self.presentError(message: "There was an error opening Yelp, could not construct url")
             }
         }
+    }
+    
+    // MARK : Restaurants
+    
+    func restaurantsDidFetch(sender: RestaurantsApi) {
+        self.filter?.setRestaurants(restaurants: sender.restaurants)
+    }
+    
+    func restaurantsDidError(sender: RestaurantsApi, errorMessage: String) {
+        self.presentError(message: errorMessage)
     }
 }
 
